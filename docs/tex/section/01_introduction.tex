@@ -1,15 +1,20 @@
 \section{Introduction}
 
 \Kotlin is a modern multiplatform programming language developed by \href{https://www.jetbrains.com/}{Jetbrains} that works on JVM such as \href{www.scala-lang.org}{\texttt{Scala}}.
-\Kotlin is completely interoperable with \texttt{Java}\footnote{All classes written in \Kotlin are callable from \texttt{Java} code and vice-versa.} and it is \textit{Object-oriented} with strong elements of \href{https://en.wikipedia.org/wiki/Functional_programming}{functional programming} that make it more powerful than his father \texttt{Java}.
-As specified in the \href{https://kotlinlang.org/#why-kotlin}{main page} of the official website, \Kotlin has also the advantages to be \textit{concise}, \textit{safe in nullability}, \textit{expressive} \textit{interoperable} and \textit{multiplatform}.
+\Kotlin is completely interoperable with \texttt{Java}\footnote{All classes written in \Kotlin are callable from \texttt{Java} code and vice-versa.} and it is \textit{object-oriented} with strong elements of \href{https://en.wikipedia.org/wiki/Functional_programming}{functional programming} that make it more powerful than his father \texttt{Java}.
+As specified in the \href{https://kotlinlang.org/#why-kotlin}{main page} of the official website, \Kotlin has also the advantages to be \textit{concise}, \textit{safe in nullability}, \textit{expressive}, \textit{interoperable} and \textit{multiplatform}.
 
-In addition to this, \Kotlin is now the official \texttt{Android} language, and now supports also \href{https://kotlinlang.org/docs/multiplatform.html}{multiplatform} allowing the developer to write \Kotlin code that can be compiled for \href{https://kotlinlang.org/docs/native-overview.html}{native} platform (including \texttt{Android} and \texttt{iOS}), \texttt{JVM} and \texttt{JavaScript}.
+In addition to this, from 2019, Google announced that \Kotlin is the preferred language for developing  \texttt{Android} application. \Kotlin supports also \href{https://kotlinlang.org/docs/multiplatform.html}{multiplatform} allowing the developer to write \Kotlin code that can be compiled for \href{https://kotlinlang.org/docs/native-overview.html}{native} platform (including \texttt{Android} and \texttt{iOS}), \texttt{JVM} and \texttt{JavaScript}.
 
 \Go is an open source programming language developed and supported by \texttt{Google}.
-It's an \textit{imperative} and \textit{object-oriented} language strongly designed for concurrency thanks to its very easy way to launch process.
+It's an \textit{imperative} and \textit{object-oriented} language strongly designed for concurrency thanks to its very easy way to launch process and its efficiency.
 The idea of this language is to maintain the run-time efficiency of \texttt{C} but with more readability and usability. Differently from \texttt{C}, \Go has \textit{memory safety}, \textit{garbage collection} and \textit{structural typing} as said by \href{https://en.wikipedia.org/wiki/Go_(programming_language)}{Wikipedia}.
 
-\textbf{Both of this language supports \href{https://en.wikipedia.org/wiki/Coroutine}{coroutines}} as concurrent units of execution. \textit{Coroutines} are lightweight processes that can run over multiple OS threads allowing to save on thread management costs.
+In the last years, \Go also supports mobile platform (\texttt{Android} and \texttt{iOS}) as described in the official \href{https://github.com/golang/go/wiki/Mobile}{wiki}, by writing \textit{all-Go native mobile applications} or \textit{SDK applications} with bindings for \texttt{Java} or \texttt{Objective-C}.
+There is also a toolkit called \href{https://fyne.io/}{Fyne} that is free and open source that makes easy to build graphical application also for mobile using \Go.
 
-Coroutines and threads are very similar but the main difference is that the firsts are \textit{non-preemptive} (or \textit{cooperatives}) differently from the seconds that are typically \textit{preemptive} and scheduled by the OS. Indeed, the execution of a coroutine can be suspended and resumed by the developer, calling some operations, and not by the OS.
+From the concurrency point of view, \textbf{both of this language supports \href{https://en.wikipedia.org/wiki/Coroutine}{coroutines}} as concurrent units of execution. \textit{Coroutines} are lightweight processes that can run over multiple OS threads, allowing to save on thread management costs.
+
+Coroutines and threads are very similar, but the main difference is that the firsts are \textit{non-preemptive} (or \textit{cooperatives}) differently from the seconds that are typically \textit{preemptive} and scheduled by the OS. Indeed, the execution of a coroutine can be suspended and resumed by the developer, calling some operations, and not by the OS.
+
+We will go in the details for both of this language.
