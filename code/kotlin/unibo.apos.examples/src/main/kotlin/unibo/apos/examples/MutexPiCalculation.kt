@@ -31,14 +31,13 @@ fun CoroutineScope.launchMutexPiWorker(sharedPi : SharedAddableDouble, k : Doubl
 
 fun mutexPiCalculation(workers : Int) : PiCalculation {
     val sharedPi = SharedAddableDouble()
-    val jobs = arrayOfNulls<Job>(workers)
+    val jobs = mutableListOf<Job>()
     val elapsedTime = measureNanoTime {
         runBlocking {
             for(k in 0 until workers) {
                 jobs[k] = launchMutexPiWorker(sharedPi, k.toDouble())
             }
-
-            jobs.forEach { it?.join() }
+            jobs.joinAll()
         }
     }
 

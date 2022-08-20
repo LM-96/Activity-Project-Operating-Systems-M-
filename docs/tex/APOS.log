@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.1.31)  16 AUG 2022 17:03
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.1.31)  20 AUG 2022 13:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -523,7 +523,7 @@ LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <14.4> not available
 
 pdfTeX warning: pdflatex.exe (file ./img/kotlin_coroutines_lifecycle.pdf): PDF 
 inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<img/kotlin_coroutines_lifecycle.pdf, id=74, 536.0025pt x 126.4725pt>
+<img/kotlin_coroutines_lifecycle.pdf, id=87, 536.0025pt x 126.4725pt>
 File: img/kotlin_coroutines_lifecycle.pdf Graphic file (type pdf)
 <use img/kotlin_coroutines_lifecycle.pdf>
 Package pdftex.def Info: img/kotlin_coroutines_lifecycle.pdf  used on input lin
@@ -535,36 +535,35 @@ Overfull \hbox (4.66211pt too wide) in paragraph at lines 66--67
 hat is an han-dler for all the ex-cep-tion thrown
  []
 
-[4]
-LaTeX Font Info:    Trying to load font information for T1+cmss on input line 9
-3.
- (C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmss.fd
+LaTeX Font Info:    Trying to load font information for T1+cmss on input line 7
+2.
+(C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmss.fd
 File: t1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-)
-Overfull \hbox (0.64804pt too wide) in paragraph at lines 96--97
+) [4]
+Overfull \hbox (0.64804pt too wide) in paragraph at lines 104--105
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
 [][][][][][][][][][][] 
  []
 
 
-Overfull \hbox (12.6452pt too wide) in paragraph at lines 99--100
+Overfull \hbox (12.6452pt too wide) in paragraph at lines 107--108
 [][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
 ][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
  []
 
-[5]) [6] (APOS.aux)
+[5] [6]) [7] (APOS.aux)
 Package rerunfilecheck Info: File `APOS.out' has not changed.
-(rerunfilecheck)             Checksum: C75B40AFAA7AEC5968C8DBF89F498324;1162.
+(rerunfilecheck)             Checksum: B43B1E55096B0EC7371690149EB181EE;1505.
  ) 
 Here is how much of TeX's memory you used:
- 14258 strings out of 478593
- 228173 string characters out of 2845076
- 551602 words of memory out of 3000000
- 32194 multiletter control sequences out of 15000+600000
+ 14396 strings out of 478593
+ 229944 string characters out of 2845076
+ 562602 words of memory out of 3000000
+ 32281 multiletter control sequences out of 15000+600000
  488799 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 60i,9n,63p,814b,1360s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,9n,63p,1050b,1908s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-supe
 r-t1.enc}{C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/
 cm-super-ts1.enc}<C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/publi
@@ -594,9 +593,9 @@ C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sftt100
 sftt1200.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm
 -super/sftt1440.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/pu
 blic/cm-super/sftt1728.pfb>
-Output written on APOS.pdf (6 pages, 521906 bytes).
+Output written on APOS.pdf (7 pages, 550830 bytes).
 PDF statistics:
- 271 PDF objects out of 1000 (max. 8388607)
- 37 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 354 PDF objects out of 1000 (max. 8388607)
+ 88 named destinations out of 1000 (max. 500000)
+ 62 words of extra memory for PDF output out of 10000 (max. 10000000)
 
