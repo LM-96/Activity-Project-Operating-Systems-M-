@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.1.31)  20 AUG 2022 13:04
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 22.1) (preloaded format=pdflatex 2022.1.31)  21 AUG 2022 21:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -365,32 +365,59 @@ Package xcolor Info: Model `wave' substituted by `hsb' on input line 1375.
 (C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/graphics\dvipsnam.def
 File: dvipsnam.def 2016/06/17 v3.0m Driver-dependent file (DPC,SPQR)
 ))
+(javalisting.sty
+(C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/base\fontenc.sty
+Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
+)
+(C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/bera\beramono.sty
+Package: beramono 2004/01/31 (WaS)
+)
+\lstcustomredarrow=\box55
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 206.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 206.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 206.
+
+(C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2020/03/24 1.8d listings language file
+))
+(C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/fancyvrb\fancyvrb.sty
+Package: fancyvrb 2022/06/06 4.5 verbatim text (tvz,hv)
+\FV@CodeLineNo=\count294
+\FV@InFile=\read3
+\FV@TabBox=\box56
+\c@FancyVerbLine=\count295
+\FV@StepNumber=\count296
+\FV@OutFile=\write3
+)
 (C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdft
 ex.def
 File: l3backend-pdftex.def 2022-01-12 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count294
-\l__pdf_internal_box=\box55
+\l__color_backend_stack_int=\count297
+\l__pdf_internal_box=\box57
 ) (APOS.aux)
 \openout1 = `APOS.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 90.
-LaTeX Font Info:    ... okay on input line 90.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -430,30 +457,23 @@ LaTeX Font Info:    ... okay on input line 90.
 (C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mki
 i
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count295
+\scratchcounter=\count298
 \scratchdimen=\dimen187
-\scratchbox=\box56
-\nofMPsegments=\count296
-\nofMParguments=\count297
+\scratchbox=\box58
+\nofMPsegments=\count299
+\nofMParguments=\count300
 \everyMPshowfont=\toks24
-\MPscratchCnt=\count298
+\MPscratchCnt=\count301
 \MPscratchDim=\dimen188
-\MPnumerator=\count299
-\makeMPintoPDFobject=\count300
+\MPnumerator=\count302
+\makeMPintoPDFobject=\count303
 \everyMPtoPDFconversion=\toks25
 )
 (C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-ba
 se.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
- (C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/grfext\grfext.sty
-Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
-)
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 85.
-Package grfext Info: Graphics extension search list:
-(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
-G,.JBIG2,.JB2,.eps]
-(grfext)             \AppendGraphicsExtensions on input line 504.
 
 (C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cf
 g
@@ -464,7 +484,7 @@ Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: wrapfig package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 90.
+Package hyperref Info: Link coloring OFF on input line 109.
  (C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
 (C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
@@ -474,128 +494,109 @@ Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
 estring.sty
 Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
-\c@section@level=\count301
+\c@section@level=\count304
 )
-LaTeX Info: Redefining \ref on input line 90.
-LaTeX Info: Redefining \pageref on input line 90.
-LaTeX Info: Redefining \nameref on input line 90.
+LaTeX Info: Redefining \ref on input line 109.
+LaTeX Info: Redefining \pageref on input line 109.
+LaTeX Info: Redefining \nameref on input line 109.
  (APOS.out) (APOS.out)
-\@outlinefile=\write3
-\openout3 = `APOS.out'.
+\@outlinefile=\write4
+\openout4 = `APOS.out'.
 
-\c@lstlisting=\count302
+\c@lstlisting=\count305
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 92.
+(Font)              <14.4> on input line 111.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 92.
+(Font)              <7> on input line 111.
  (APOS.toc
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 3
-.
+LaTeX Font Info:    Trying to load font information for T1+fvm on input line 3.
 
-(C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
-File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+
+(C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/bera\t1fvm.fd
+File: t1fvm.fd 2004/09/07 scalable font definitions for T1/fvm.
 )
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <12> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 3.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 4.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 4.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 4.
+LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
+(Font)              scaled to size 9.60004pt on input line 3.
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 9.60004pt on input line 4.
 )
-\tf@toc=\write4
-\openout4 = `APOS.toc'.
+\tf@toc=\write5
+\openout5 = `APOS.toc'.
 
 
 (section/00_abstract.tex) (section/01_introduction.tex
 LaTeX Font Info:    External font `cmex10' loaded for size
 (Font)              <5> on input line 4.
+LaTeX Font Info:    Font shape `T1/fvm/m/n' will be
+(Font)              scaled to size 8.00003pt on input line 4.
  [1
 
 {C:/Users/Luca/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}])
 (section/02_concurrency_overview.tex
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 1.
-LaTeX Font Info:    Font shape `T1/cmtt/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/cmtt/m/n' tried instead on input line 8.
+LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
+(Font)              scaled to size 13.82405pt on input line 1.
+LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
+(Font)              scaled to size 11.52003pt on input line 8.
  [2]
 
 pdfTeX warning: pdflatex.exe (file ./img/kotlin_coroutines_lifecycle.pdf): PDF 
 inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<img/kotlin_coroutines_lifecycle.pdf, id=87, 536.0025pt x 126.4725pt>
+<img/kotlin_coroutines_lifecycle.pdf, id=85, 536.0025pt x 126.4725pt>
 File: img/kotlin_coroutines_lifecycle.pdf Graphic file (type pdf)
 <use img/kotlin_coroutines_lifecycle.pdf>
 Package pdftex.def Info: img/kotlin_coroutines_lifecycle.pdf  used on input lin
 e 39.
 (pdftex.def)             Requested size: 409.71692pt x 96.67395pt.
-[3 <./img/kotlin_coroutines_lifecycle.pdf>]
-Overfull \hbox (4.66211pt too wide) in paragraph at lines 66--67
-[]\T1/cmr/m/n/12 the \T1/cmtt/m/n/12 CoroutineExceptionHandler \T1/cmr/m/n/12 t
-hat is an han-dler for all the ex-cep-tion thrown
+[3 <./img/kotlin_coroutines_lifecycle.pdf>] [4]
+Overfull \hbox (17.49852pt too wide) in paragraph at lines 95--96
+[]$[]$\T1/cmr/m/n/12 , for ex-am-ple us-ing the []\T1/fvm/m/n/12 runBlocking[] 
+\T1/cmr/m/n/12 scope builder; 
  []
 
-LaTeX Font Info:    Trying to load font information for T1+cmss on input line 7
-2.
-(C:\Users\Luca\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmss.fd
-File: t1cmss.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) [4]
-Overfull \hbox (0.64804pt too wide) in paragraph at lines 104--105
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][]
-[][][][][][][][][][][] 
- []
-
-
-Overfull \hbox (12.6452pt too wide) in paragraph at lines 107--108
-[][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][
-][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][][] 
- []
-
-[5] [6]) [7] (APOS.aux)
+[5] [6] [7] [8]) [9] (APOS.aux)
 Package rerunfilecheck Info: File `APOS.out' has not changed.
 (rerunfilecheck)             Checksum: B43B1E55096B0EC7371690149EB181EE;1505.
  ) 
 Here is how much of TeX's memory you used:
- 14396 strings out of 478593
- 229944 string characters out of 2845076
- 562602 words of memory out of 3000000
- 32281 multiletter control sequences out of 15000+600000
- 488799 words of font info for 64 fonts, out of 8000000 for 9000
+ 14863 strings out of 478593
+ 237236 string characters out of 2845076
+ 958674 words of memory out of 3000000
+ 32706 multiletter control sequences out of 15000+600000
+ 490589 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  60i,9n,63p,1050b,1908s stack positions out of 5000i,500n,10000p,200000b,80000s
 {C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/cm-supe
 r-t1.enc}{C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/cm-super/
-cm-super-ts1.enc}<C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/publi
-c/amsfonts/cm/cmmi12.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/typ
-e1/public/amsfonts/cm/cmr12.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fo
-nts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Luca/AppData/Local/Programs/MiK
-TeX/fonts/type1/public/cm-super/sfbi1200.pfb><C:/Users/Luca/AppData/Local/Progr
-ams/MiKTeX/fonts/type1/public/cm-super/sfbi2074.pfb><C:/Users/Luca/AppData/Loca
-l/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1200.pfb><C:/Users/Luca/AppDa
-ta/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1440.pfb><C:/Users/Luc
-a/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1728.pfb><C:/Us
-ers/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx2074.pfb
-><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfrm0
-600.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-supe
-r/sfrm0700.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/
-cm-super/sfrm0800.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/
-public/cm-super/sfrm1000.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts
-/type1/public/cm-super/sfrm1095.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTe
-X/fonts/type1/public/cm-super/sfrm1200.pfb><C:/Users/Luca/AppData/Local/Program
-s/MiKTeX/fonts/type1/public/cm-super/sfrm1440.pfb><C:/Users/Luca/AppData/Local/
-Programs/MiKTeX/fonts/type1/public/cm-super/sfss1000.pfb><C:/Users/Luca/AppData
-/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfsx1000.pfb><C:/Users/Luca/
-AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfti1095.pfb><C:/User
-s/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfti1200.pfb><
-C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sftt100
-0.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/
-sftt1200.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm
--super/sftt1440.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/pu
-blic/cm-super/sftt1728.pfb>
-Output written on APOS.pdf (7 pages, 550830 bytes).
+cm-super-ts1.enc}{C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/b
+ase/8r.enc}<C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsf
+onts/cm/cmmi12.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmmi8.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/amsfonts/cm/cmr12.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmr8.pfb><C:/Users/Luca/AppData/Local/Programs/Mi
+KTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/Luca/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/bera/fvmb8a.pfb><C:/Users/Luca/AppData/Local/Programs/
+MiKTeX/fonts/type1/bera/fvmr8a.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX
+/fonts/type1/public/cm-super/sfbi1200.pfb><C:/Users/Luca/AppData/Local/Programs
+/MiKTeX/fonts/type1/public/cm-super/sfbi2074.pfb><C:/Users/Luca/AppData/Local/P
+rograms/MiKTeX/fonts/type1/public/cm-super/sfbx1000.pfb><C:/Users/Luca/AppData/
+Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1200.pfb><C:/Users/Luca/A
+ppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1440.pfb><C:/Users
+/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx1728.pfb><C
+:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfbx2074
+.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/s
+frm0600.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-
+super/sfrm0700.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/cm-super/sfrm0800.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/fonts/ty
+pe1/public/cm-super/sfrm1000.pfb><C:/Users/Luca/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/cm-super/sfrm1095.pfb><C:/Users/Luca/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/cm-super/sfrm1200.pfb><C:/Users/Luca/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/cm-super/sfrm1440.pfb><C:/Users/Luca/AppData/Lo
+cal/Programs/MiKTeX/fonts/type1/public/cm-super/sfti1000.pfb><C:/Users/Luca/App
+Data/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfti1095.pfb><C:/Users/L
+uca/AppData/Local/Programs/MiKTeX/fonts/type1/public/cm-super/sfti1200.pfb>
+Output written on APOS.pdf (9 pages, 489605 bytes).
 PDF statistics:
- 354 PDF objects out of 1000 (max. 8388607)
- 88 named destinations out of 1000 (max. 500000)
+ 401 PDF objects out of 1000 (max. 8388607)
+ 117 named destinations out of 1000 (max. 500000)
  62 words of extra memory for PDF output out of 10000 (max. 10000000)
 

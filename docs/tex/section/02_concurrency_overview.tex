@@ -135,16 +135,16 @@ For example:
 	}
 \end{lstlisting}
 produces an output similar to:
-\begin{lstlisting}[numbers=none]
+\begin{Verbatim}
 	parent  : [CoroutineName(MyCoroutine),
-			BlockingCoroutine{Active}@68f7aae2, BlockingEventLoop@4f47d241]
+		BlockingCoroutine{Active}@68f7aae2, BlockingEventLoop@4f47d241]
 	launch1 : [CoroutineName(MyCoroutine),
-			StandaloneCoroutine{Active}@d70c109, BlockingEventLoop@4f47d241],
-			childScope == parentScope : false
+		StandaloneCoroutine{Active}@d70c109, BlockingEventLoop@4f47d241],
+		childScope == parentScope : false
 	launch2 : [CoroutineName(MyCoroutine),
-			StandaloneCoroutine{Active}@1bc6a36e, BlockingEventLoop@4f47d241],
-			childScope == parentScope : false
-\end{lstlisting}
+		StandaloneCoroutine{Active}@1bc6a36e, BlockingEventLoop@4f47d241],
+		childScope == parentScope : false
+\end{Verbatim}
 
 As you can see, both child scopes are different from parent even if they are in relationship: cancelling parent scope cancels those of the children, but the reverse is not true.
 About the context, it's clear that child contexts are completely inherited from the parent except for the \texttt{Job} instances\footnote{\texttt{BlockingCoroutine} and \texttt{StandaloneCoroutine} are \texttt{Job} extensions.} that are different.
@@ -176,34 +176,117 @@ We highlight that \textbf{coroutines in \Kotlin can use shared memory or \textit
 
 \subsubsection{Suspending function}
 
-\textit{Suspending function} are normal \Kotlin methods but with the feature that they can \textit{suspend} the execution of a coroutine. The main example of suspending function it's \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/delay.html}{\texttt{delay}} that suspend the execution of coroutine which calls it for a specified time.
+\textit{Suspending function} are normal \Kotlin methods but with the feature that \textbf{they can \textit{suspend} the execution of a coroutine}. The main example of suspending function it's \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/delay.html}{\texttt{delay}} that suspend the execution of coroutine which calls it for a specified time.
 
-Look at this code:
+Let's make an example (\href{https://github.com/LM-96/Activity-Project-Operating-Systems-M-/blob/main/code/kotlin/unibo.apos.examples/src/main/kotlin/unibo/apos/examples/SuspendingFunctionExample.kt}{\texttt{SuspendingFunctionExample.kt}}):
 \begin{lstlisting}[language=Kotlin]
-	suspend fun sleep(timeMillis : Long) {
-		println("I'm going to sleep for $timeMillis milliseconds...")
+	suspend fun sleep(who : String, timeMillis : Long) {
+		println("$who: I'm going to sleep for $timeMillis milliseconds...")
 		delay(timeMillis)
-		println("Good morning, I wake up!")
+		println("$who: Good morning, I wake up!")
+	}
+	
+	suspend fun pollAlive(who : String, pollingTime : Long) {
+		while (true) {
+			delay(pollingTime)
+			println("$who: i'm alive [thread=${Thread.currentThread()}]")
+		}
+	}
+	
+	suspend fun sayHello(who : String) {
+		println("$who : Hello... I'm a coroutine " +
+				"[thread=${Thread.currentThread()}]")
+		println("$who : My context: $coroutineContext")
 	}
 	
 	fun main() {
-		runBlocking(CoroutineName("MyCoroutine")) {
-			val job = launch {
-				println("Hello... I'm a coroutine")
-				sleep(5000)
-				println("I'm out of my bed. Goodbye")
+		@OptIn(DelicateCoroutinesApi::class)
+		val ctx = newSingleThreadContext("CoroutineSingleThread")
+		
+		runBlocking(ctx) {
+			println("parent: [thread=${Thread.currentThread()}]")
+			val job1 = launch {
+				val who = "job1"
+				sayHello(who)
+				sleep(who, 3000)
+				sayHello(who)
 			}
-			job.join()
+			val job2 = launch {
+				val who = "job2"
+				sayHello(who)
+				pollAlive("job2", 500)
+				sayHello(who)
+			}
+			job1.join()
+			println("parent: job1 = $job1, job2 = $job2")
+			job2.cancelAndJoin()
+			println("parent: job1 = $job1, job2 = $job2")
 		}
 	}
 \end{lstlisting}
 it produces:
-\begin{lstlisting}[numbers=none]
-	Hello... I'm a coroutine
-	I'm going to sleep for 5000 milliseconds...
-	Good morning, I wake up!
-	I'm out of my bed. Goodbye
+\begin{Verbatim}
+	parent: [thread=Thread[CoroutineSingleThread,5,main]]
+	job1 : Hello... I'm a coroutine [
+			thread=Thread[CoroutineSingleThread,5,main]]
+	job1 : My context: [StandaloneCoroutine{Active}@739c17c3,
+			java.util.concurrent.ScheduledThreadPoolExecutor@4289a013
+			[Running, pool size = 1, active threads = 1,
+				queued tasks = 1, completed tasks = 1]]
+	job1: I'm going to sleep for 3000 milliseconds...
+	job2 : Hello... I'm a coroutine [
+			thread=Thread[CoroutineSingleThread,5,main]]
+	job2 : My context: [StandaloneCoroutine{Active}@7ce21fc2,
+			java.util.concurrent.ScheduledThreadPoolExecutor@4289a013
+			[Running, pool size = 1, active threads = 1,
+				queued tasks = 1, completed tasks = 2]]
+	job2: i'm alive [thread=Thread[CoroutineSingleThread,5,main]]
+	job2: i'm alive [thread=Thread[CoroutineSingleThread,5,main]]
+	job2: i'm alive [thread=Thread[CoroutineSingleThread,5,main]]
+	job2: i'm alive [thread=Thread[CoroutineSingleThread,5,main]]
+	job2: i'm alive [thread=Thread[CoroutineSingleThread,5,main]]
+	job1: Good morning, I wake up!
+	job1 : Hello... I'm a coroutine [
+			thread=Thread[CoroutineSingleThread,5,main]]
+	job1 : My context: [StandaloneCoroutine{Active}@739c17c3,
+			java.util.concurrent.ScheduledThreadPoolExecutor@4289a013
+			[Running, pool size = 1, active threads = 1,
+				queued tasks = 1, completed tasks = 8]]
+	parent: job1 = StandaloneCoroutine{Completed}@739c17c3,
+			job2 = StandaloneCoroutine{Active}@7ce21fc2
+	parent: job1 = StandaloneCoroutine{Completed}@739c17c3,
+			job2 = StandaloneCoroutine{Cancelled}@7ce21fc2
+	
+\end{Verbatim}
+
+In this significant example we have used the \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/new-single-thread-context.html}{\texttt{newSingleThreadContext}} in order to create a context with a single thread $T_x$ dedicated for the execution of the coroutine: all coroutines that inherits this context executes on $T_x$.
+
+The example shows some important characteristic of \Kotlin coroutines and suspending function:
+\begin{enumerate}
+	\item When \texttt{job1} calls the \textit{suspend} function \texttt{sleep(who, 3000)} and encounters the \texttt{delay} instruction at the line $3$, coroutine goes into suspension for $3$ seconds but, once resumed, the execution restarts exactly by the end of \texttt{delay} at line $3$;
+	
+	\item Since we have forced a single thread for the two coroutines, this snippet shows that even if \texttt{job1} is suspended on the \texttt{delay} (line $3$), the thread is however active (not paused or suspended) and it continues to run the \texttt{job2}. This is demonstrated by all the \textit{alive} prints of \texttt{job2} in the resulting command windows.
+	
+	\item The instruction \texttt{cancelAndJoin()} let the developer easy to cancel a coroutine, waiting for its end.
+\end{enumerate}
+
+By concluding, a \textbf{suspending function} is a \Kotlin \textbf{method able to suspend the coroutine that calls it without blocking the executing thread}. At the implementation point of view, suspending function are normal method with an \textit{hidden} parameter of type \href{https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation/}{Continuation} that is automatically added when the code is compiled. The implementations of this class that are built-in provided are used by coroutines to save their state before a suspension point.
+
+To understand, suppose to compile the shown example \texttt{SuspendingFunctionExample.kt} on a desktop machine with \texttt{JVM}. After the normal \Kotlin compilation we will have the executable \texttt{SuspendingFunctionExampleKt.class}, and if we decompile\footnote{For example using \href{https://java-decompiler.github.io/}{\textit{JD-GUI}}.} we will see that all the suspending functions have this \texttt{Java} signature:
+
+\begin{lstlisting}
+	public static final Object sleep(@NotNull String who, long timeMillis,
+		@NotNull Continuation<? super Unit> paramContinuation)
+		
+	public static final Object pollAlive(@NotNull String who,
+		long pollingTime,
+		@NotNull Continuation<? super Unit> paramContinuation)
+		
+	public static final Object sayHello(@NotNull String who,
+		@NotNull Continuation $completion)
 \end{lstlisting}
+
+So, a suspending function is simply compiled into a \texttt{Java} method with a \texttt{Continuation} as last parameter that can be used to suspend the coroutine that calls the function.
 
 \subsection{\Go concurrency overview}
 
