@@ -1,24 +1,26 @@
 \section{Overview of the concurrency in \Kotlin and \Go}
 
-As specified in the introduction, \Kotlin and \Go exposes concurrency thanks to \textbf{coroutines} and other tools that let the developer manage their synchronization.
+As specified in the introduction, \Kotlin and \Go exposes concurrency thanks to \textbf{coroutines} and other tools that let the developer manage their synchronization. To be precise, while \Go has only coroutines to implement concurrency, \Kotlin has a more sophisticated and complete \textit{framework} for that: indeed, lots of \Kotlin application (including \texttt{Android} apps) run over a \texttt{JVM} (or on the \texttt{ART}), so all the standard \texttt{Java} threading packages are available.
 
-As we already said, coroutines are lightweight processes for cooperation that executes on OS threads and that can suspend at a certain point and later resumed at the same point but with the possibility to execute on a different thread. The main advantage by using coroutines instead threads is that switching between then does not require any \textit{system call} ensuring lower management costs.
-This introduces great advantages especially for \textit{asynchronous} computation.
+Anyway, as we already said, \textbf{coroutines} are \textbf{lightweight processes for cooperation that execute over OS threads} and that can suspend at a certain point and resume later at the same point, but with the possibility to execute on a different thread. The main advantage of using them instead threads is that \textbf{switching between coroutines does not require any \textit{system call}}, ensuring lower management costs.
+This introduces great advantages, especially for \textit{asynchronous} computation.
+
+To conclude this general introduction, coroutines can use \textit{shared memory} or \textit{message passing}, based on what developer choose to use. Indeed, both \Kotlin and \Go provides supports for the two mechanisms: \textit{semaphore} and \textit{mutex} for shared memory and \textit{channels} for \textit{message passing}.
 
 \subsection{\Kotlin concurrency overview}
 
 We said that \Kotlin is based on the \texttt{JVM} (but can also compile \texttt{JavaScript} or native using \href{https://llvm.org/}{LLVM}) and is interoperable with \texttt{Java}. The main implementation of \Kotlin is done in its compiler: for \Kotlin on \texttt{JVM}, all classes are compiled as normal \texttt{Java} classes. This means that \textbf{\Kotlin can access to all \texttt{threading}} packages exposed by \texttt{Java} (and this is also valid for \texttt{Android}). So, in \Kotlin \textbf{it is possible to use the standard threads} that are provided by \texttt{Java}.
 
-Even if there is the possibility to use the standard \texttt{Java} threads, as anticipated, \Kotlin introduces the new \href{https://github.com/Kotlin/kotlinx.coroutines}{\texttt{kotlinx.coroutines}} library for realizing concurrency by adopting \textit{coroutines}. Coroutines are \textit{instances of suspendable computation} that let the developer to easily write \textbf{asynchronous and non-blocking code} that can run concurrently, without using \textit{callback} or \textit{promises}.
-The main mechanism in which \Kotlin coroutines are based is the \textbf{suspending function}: special \Kotlin method that can suspend the execution of the current coroutine without blocking the current thread.
+Even if there is the possibility to use the standard \texttt{Java} threads, as anticipated, \Kotlin introduces the new \href{https://github.com/Kotlin/kotlinx.coroutines}{\texttt{kotlinx.coroutines}} library to realize concurrency by adopting \textit{coroutines}. Coroutines are \textit{instances of suspendable computation} that let the developer to easily write \textbf{asynchronous and non-blocking code} that can run concurrently, without using \textit{callback} or \textit{promises}.
+The main mechanism that turns around \Kotlin coroutines is the concept of \textbf{suspending function}: a special type of \Kotlin method that can suspend the execution of the current coroutine without blocking the current thread. A function can be marked as \texttt{suspend} simply by adding this modifier to its signature.
 
 \subsubsection{Realization of coroutines in \Kotlin}
 
-To go into the details of the coroutine in \Kotlin, we have to introduce some basic concepts\footnote{See \href{https://medium.com/mobile-app-development-publication/kotlin-coroutine-scope-context-and-job-made-simple-5adf89fcfe94}{medium.com} for additional details.}:
+To go into the details of coroutines in \Kotlin, we have to introduce some basic concepts\footnote{See \href{https://medium.com/mobile-app-development-publication/kotlin-coroutine-scope-context-and-job-made-simple-5adf89fcfe94}{medium.com} for additional details.}:
 \begin{itemize}
 	\item \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/}{\underline{\textbf{\textcolor{ForestGreen}{Job}}}}:\\
-	The object that represents a \textit{background job} of a coroutine. When a coroutine is launched, the \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html}{\texttt{launch}} method immediately returns the reference to the \texttt{Job} associated to the coroutine. \textbf{A job represents the lifecycle of a coroutine} and can be used to \textit{cancel} its execution. Then, it can have six possible states, each coded by a combination of the three properties of the \texttt{Job} class: \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/is-active.html}{\texttt{isActive}}, \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/is-completed.html}{\texttt{isCompleted}} and \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/is-cancelled.html}{\texttt{isCancelled}}.
-	This table summarizes the possible states of a \texttt{Job} and the value of the three properties for each state:
+	The object that represents the \textit{background job} of one coroutine. When a coroutine is launched, the \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html}{\texttt{launch}} method immediately returns the reference to the \texttt{Job} associated to the coroutine. \textbf{A job represents the lifecycle of a coroutine} and can be used to \textit{cancel} its execution. Then, it can have six possible states, each coded by a combination of the three properties of the \texttt{Job} class: \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/is-active.html}{\texttt{isActive}}, \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/is-completed.html}{\texttt{isCompleted}} and \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-job/is-cancelled.html}{\texttt{isCancelled}}.
+	The following table summarizes the possible states of a \texttt{Job} and the value of the three properties for each state:
 	\begin{table}[h!]
 		\centering
 		\begin{tabular}{ccccc}
@@ -41,20 +43,20 @@ To go into the details of the coroutine in \Kotlin, we have to introduce some ba
 		\label{fig::kotlin_coroutines_lifecycle}
 	\end{figure}
 
-	The figure \ref{fig::kotlin_coroutines_lifecycle} represents the entire lifecycle of a \texttt{Job}, so it also represents the lifecycle of a \Kotlin coroutine.
+	The graphs shown in the  \ref{fig::kotlin_coroutines_lifecycle} represents the entire lifecycle of a \texttt{Job}, so it also represents the lifecycle of a \Kotlin coroutine.
 	
 	\item \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-dispatcher/}{\underline{\textbf{\textcolor{ForestGreen}{CoroutineDispatcher}}}}:\\
 	As we already said, in their lifecycle coroutine can run in different threads. For example, suppose to have a coroutine $C_1$ that is started on the thread $T_1$ that executes its code:
 	\begin{enumerate}
 		\item $C_1$ starts its execution on thread $T_1$;
-		\item during its execution, $C_1$ encounter an instruction $I_1$ that suspends it waiting for something;
+		\item during its execution, $C_1$ encounter an instruction $I_1$ that suspends itself waiting for something (but the instruction does not suspend the thread);
 		\item $C_1$ is suspended by $I_1$ and another coroutine $C_2$ starts to execute on $T_1$;
 		\item $C_2$ is executing on $T_1$ while $I_1$ returns resuming $C_1$ from its suspension, but now $T_1$ is not available because it is executing the code of $C_2$;
 		\item $C_1$ may execute on another available thread $T_2$ while $C_2$ continue to run in parallel on $T_1$ (if the configuration allows it).
 	\end{enumerate}
-	\textbf{\texttt{CoroutineDispatcher} is the object that \textit{dispatch} the coroutine between the different available threads}. The \texttt{CoroutineDispatcher} is important because it determines in which thread a couroutine can run: for example, in \texttt{Android} using \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html}{Dispatchers.Main} means that the coroutine will be executed confined to the \texttt{Main} thread\footnote{In this case, the coroutine can update the \texttt{UI}. There are also dispatchers for \texttt{JavaFX} or \texttt{Swing} for \texttt{Kotlin JVM} to force coroutines to be executed on the thread that can update the user interface.}.
+	\textbf{\texttt{CoroutineDispatcher} is the object that \textit{dispatchs} coroutines between the different available threads}. The \texttt{CoroutineDispatcher} is important because it determines in which thread a couroutine can run: for example, in \texttt{Android} using \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-main.html}{\texttt{Dispatchers.Main}} means that the coroutine will be executed confined to the \texttt{Main} thread\footnote{In this case, the coroutine can update the \texttt{UI}. There are also dispatchers for \texttt{JavaFX} or \texttt{Swing} for \texttt{Kotlin JVM} to force coroutines to be executed on the thread that can update the user interface.}.
 	
-	By default, when a coroutine is created, it is used the \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-default.html}{\texttt{Dispatchers.Default}} that uses \textit{worker} threads, a shared pool of threads on \texttt{JVM} in which coroutines can execute in parallel. 
+	By default, when a coroutine is created, it is used the \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-dispatchers/-default.html}{\texttt{Dispatchers.Default}} that uses \textit{worker} threads, a shared pool of threads on the \texttt{JVM} in which coroutines can execute in parallel. 
 	
 	\item \href{https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/}{\underline{\textbf{\textcolor{ForestGreen}{CoroutineContext}}}}:\\
 	Each coroutine in \Kotlin has a \textit{context} that is \textit{immutable}. A context is simply a set of \textit{elements} that realizes the concept of \textit{context} in which the coroutine executes.
@@ -67,21 +69,21 @@ To go into the details of the coroutine in \Kotlin, we have to introduce some ba
 		\item the \texttt{ContinuationInterceptor} that allows to define \textit{how} the coroutine should continue after a resume (a sort of \textit{callback} that is invoked on coroutine resume).
 	\end{itemize}
 	
-	Notice that \textbf{\texttt{CoroutineContext} is immutable, but it is possible to add elements using the plus operator} that produces a new context instance. In addition, \textbf{all of these elements extends \texttt{CoroutineContext}} so, using \href{https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/plus.html}{\texttt{plus}} operator let to easily create a context that is a \textit{join} of the other.
+	Notice that \textbf{\texttt{CoroutineContext} is immutable, but it is possible to add elements using the plus operator} that produces a new context instance. In addition, \textbf{all of these elements extends \texttt{CoroutineContext}} so, using \href{https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-coroutine-context/plus.html}{\texttt{plus}} operator let to easily create a context that is a \textit{join} of others.
 	For example:
 	\begin{lstlisting}[language=Kotlin,numbers=none]
 		val newContext = CoroutineName("MyCoroutine") + Dispatchers.Main
 	\end{lstlisting}
 	creates a new context named \textit{MyCoroutine} in which coroutine will be executed using \texttt{Disparchers.Main}.
 	
-	\textbf{A context can be passed to the coroutine builder before launching it or, if the context has to be changed while coroutine is running, it is possible to use \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html}{withContext} suspend function}.
+	\textbf{A context can be passed to the coroutine builder before launching it or, if the context has to be changed while the coroutine is running, it is possible to use the \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/with-context.html}{withContext} suspend function}.
 	\Kotlin has also a default context for builders that is \href{https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-empty-coroutine-context/}{\texttt{EmptyCoroutineContext}} which can be also used with \texttt{plus} operator to create new contexts.
 	
 	\item \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/-coroutine-scope/}{\underline{\textbf{\textcolor{ForestGreen}{CoroutineScope}}}}:\\
 	Each coroutine in \Kotlin must have a \textit{scope} which delimits the lifetime of the coroutine. The \texttt{CoroutineScope} consists in only one property: \texttt{coroutineContext}, an instance of \texttt{CoroutineContext}.
 	In addition to this, the \texttt{CoroutineScope} has also some \href{https://kotlinlang.org/docs/extensions.html}{\textit{extension functions}} such as \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/launch.html}{\texttt{launch}} that is a builder for coroutines.
 	
-	Then, when \texttt{launch} is invoked using a \texttt{CoroutineScope}, the function launches a new coroutine and its context is \textit{inherited} from those of the scope.
+	Then, when \texttt{launch} is invoked using a \texttt{CoroutineScope}, it launches a new coroutine and its context is \textit{inherited} from those of the scope.
 	In this way, all the elements of the parents and its cancellation are propagated to the child; then, if a scope is cancelled, all the coroutine launched starting from it will be cancelled.
 \end{itemize}
 
@@ -97,11 +99,11 @@ In order to launch a coroutine, the developer has to:
 	\item \underline{call a coroutine builder starting from the created scope}, such as \texttt{launch}, that returns the \texttt{Job} associated to the coroutine.
 \end{enumerate}
 
-Here is the example of the creation of a simple coroutine taken from the official documentation on \href{https://kotlinlang.org/docs/coroutines-basics.html#your-first-coroutine}{kotlinlang.org}:
+Here there is an example of the creation of a simple coroutine taken from the official documentation on \href{https://kotlinlang.org/docs/coroutines-basics.html#your-first-coroutine}{kotlinlang.org}:
 \begin{lstlisting}[language=kotlin]
 	fun main() = runBlocking { // this: CoroutineScope
 		launch { // launch a new coroutine and continue
-			delay(1000L) // non-blocking delay for 1 second (default time unit is ms)
+			delay(1000L) // non-blocking delay for 1 second
 			println("World!") // print after delay
 		}
 		println("Hello") // main coroutine continues while a previous one is delayed
@@ -116,7 +118,7 @@ that produces this result on the console:
 
 To fully understand this snippet, the reader should know \href{https://kotlinlang.org/docs/lambdas.html#higher-order-functions}{\textit{higher-order functions}} and \href{https://kotlinlang.org/docs/lambdas.html#function-types}{\textit{receivers}} which are concepts that came from \textit{functional programming} available in \Kotlin.
 
-Notice that \texttt{runBlocking} as also an optional \texttt{CoroutineContext} argument that can be used to pass elements that will be added to the context of the scope. All of these elements are inherited by child except for the \texttt{Job} that is created by the coroutine builder.
+Notice that \texttt{runBlocking} has also an optional \texttt{CoroutineContext} argument that can be used to pass elements that will be added to the context of the scope. All of these elements are inherited by child except for the \texttt{Job} that is created by the coroutine builder.
 
 For example:
 \begin{lstlisting}[language=Kotlin]
