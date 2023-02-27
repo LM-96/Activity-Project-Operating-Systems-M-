@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2023.2.24)  24 FEB 2023 18:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2023.2.19)  25 FEB 2023 15:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -534,7 +534,7 @@ LaTeX Font Info:    Font shape `T1/fvm/b/n' will be
 
 pdfTeX warning: /usr/bin/pdflatex (file ./img/kotlin_coroutines_lifecycle.pdf):
  PDF inclusion: found PDF version <1.7>, but at most version <1.5> allowed
-<img/kotlin_coroutines_lifecycle.pdf, id=86, 536.0025pt x 126.4725pt>
+<img/kotlin_coroutines_lifecycle.pdf, id=91, 536.0025pt x 126.4725pt>
 File: img/kotlin_coroutines_lifecycle.pdf Graphic file (type pdf)
 <use img/kotlin_coroutines_lifecycle.pdf>
 Package pdftex.def Info: img/kotlin_coroutines_lifecycle.pdf  used on input lin
@@ -549,15 +549,15 @@ Overfull \hbox (17.49852pt too wide) in paragraph at lines 97--98
 \T1/cmr/m/n/12 scope builder; 
  []
 
-[5] [6] [7] [8]) [9] [10] (./APOS.aux)
+[5] [6] [7] [8] [9]) [10] (./APOS.aux)
 Package rerunfilecheck Info: File `APOS.out' has not changed.
-(rerunfilecheck)             Checksum: B43B1E55096B0EC7371690149EB181EE;1505.
+(rerunfilecheck)             Checksum: 2A8D7204155389527D3946000E60C803;1696.
  ) 
 Here is how much of TeX's memory you used:
- 14160 strings out of 480806
- 209132 string characters out of 5905151
- 874026 words of memory out of 6000000
- 31210 multiletter control sequences out of 15000+600000
+ 14163 strings out of 480806
+ 209183 string characters out of 5905151
+ 905026 words of memory out of 6000000
+ 31211 multiletter control sequences out of 15000+600000
  424760 words of font info for 69 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  60i,9n,63p,1052b,1902s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -586,10 +586,10 @@ f-dist/fonts/type1/public/cm-super/sfrm1440.pfb></usr/share/texlive/texmf-dist/
 fonts/type1/public/cm-super/sfti1000.pfb></usr/share/texlive/texmf-dist/fonts/t
 ype1/public/cm-super/sfti1095.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
 blic/cm-super/sfti1200.pfb>
-Output written on APOS.pdf (10 pages, 421943 bytes).
+Output written on APOS.pdf (10 pages, 426401 bytes).
 PDF statistics:
- 385 PDF objects out of 1000 (max. 8388607)
- 340 compressed objects within 4 object streams
- 118 named destinations out of 1000 (max. 500000)
- 62 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 398 PDF objects out of 1000 (max. 8388607)
+ 353 compressed objects within 4 object streams
+ 120 named destinations out of 1000 (max. 500000)
+ 70 words of extra memory for PDF output out of 10000 (max. 10000000)
 

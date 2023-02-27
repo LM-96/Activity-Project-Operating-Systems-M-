@@ -116,9 +116,9 @@ that produces this result on the console:
 	World!
 \end{lstlisting}
 
-To fully understand this snippet, the reader should know \href{https://kotlinlang.org/docs/lambdas.html#higher-order-functions}{\textit{higher-order functions}} and \href{https://kotlinlang.org/docs/lambdas.html#function-types}{\textit{receivers}} which are concepts that came from \textit{functional programming} available in \Kotlin.
+To fully understand this snippet, the reader should know something about \href{https://kotlinlang.org/docs/lambdas.html#higher-order-functions}{\textit{higher-order functions}} and \href{https://kotlinlang.org/docs/lambdas.html#function-types}{\textit{receivers}} which are concepts that came from \textit{functional programming} available in \Kotlin.
 
-Notice that \texttt{runBlocking} has also an optional \texttt{CoroutineContext} argument that can be used to pass elements that will be added to the context of the scope. All of these elements are inherited by child except for the \texttt{Job} that is created by the coroutine builder.
+Notice that \texttt{runBlocking} has also an optional \texttt{CoroutineContext} argument that can be used to pass elements that will be added to the context of the scope. All of these elements are inherited by the child except for the \texttt{Job} that is created by the coroutine builder.
 
 For example:
 \begin{lstlisting}[language=Kotlin]
@@ -155,19 +155,20 @@ About the context, it's clear that child contexts are completely inherited from 
 
 We highlight that \textbf{coroutines in \Kotlin can use shared memory or \textit{messages}} to synchronize themselves. In particular:
 \begin{itemize}
-	\item \underline{The package \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.sync/}{\texttt{kotlinx.coroutines.sync}}} exposes classical tools for synchronization in a shared memory environment (\textit{mutex} and \textit{semaphore}).
+	\item \underline{The package \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.sync/}{\texttt{kotlinx.coroutines.sync}}} exposes the classical tools for synchronization in a shared memory environment (\textit{mutex} and \textit{semaphore}).
 	
-	Notice that this type of synchronization is very basic if compared with the standard \texttt{Java} tools for concurrency such as \texttt{Lock} and \texttt{Condition}; at this moment, \Kotlin does not define any mechanism similar to \texttt{Java} condition, but however it's simple to implement it (for example, we have an implementation made by the author called \href{https://github.com/LM-96/KBomber/blob/main/kbomberx-concurrency/src/main/kotlin/kbomberx/concurrency/sync/CoroutineCondition.kt}{\texttt{CoroutineCondition}} that uses the \href{https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation/}{\texttt{Continuation}} object of a coroutine).
+	Notice that this type of synchronization is very basic if compared with the standard \texttt{Java} tools for concurrency such as \texttt{Lock} and \texttt{Condition}; at this moment, \Kotlin does not define any mechanism similar to \texttt{Java} condition, but, however, it's very easy to implement it (for example, we have an implementation made by the author called \href{https://github.com/LM-96/KBomber/blob/main/kbomberx-concurrency/src/main/kotlin/kbomberx/concurrency/sync/CoroutineCondition.kt}{\texttt{CoroutineCondition}} that uses the \href{https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation/}{\texttt{Continuation}} object of a coroutine).
 	
 	$\big[$See \href{https://github.com/LM-96/Activity-Project-Operating-Systems-M-/blob/main/code/kotlin/unibo.apos.examples/src/main/kotlin/unibo/apos/examples/MutexPiCalculation.kt}{\texttt{MutexPiCalculation.kt}} for a basic example$\big]$
 	
 	\item \underline{The package \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/}{\texttt{kotlinx.coroutines.channels}}} exposes classical tools for synchronization by exchanging messages in no shared memory environment (\textit{channels}).
 	The main entity of this package is \href{https://kotlinlang.org/docs/channels.html}{\texttt{Channel}}, that is very similar to \href{https://docs.oracle.com/en/java/javase/18/docs/api/java.base/java/util/concurrent/BlockingQueue.html}{\texttt{BlockingQueue}} but with suspending operations instead of the \texttt{Java} blocking methods.
 	
-	Two coroutines can use a channel in order to transfer a single value that came from the \textit{producer} (the coroutine that invoke the \texttt{send} operation) and goes to the \textit{consumer} (the coroutine that invoke the \texttt{receive} operation); in \Kotlin channels are \textbf{bidirectional} and \textbf{symmetric} (one-to-one).
+	Two coroutines can use a channel in order to transfer a single value that came from the \textit{producer} (the coroutine that invoke the \texttt{send} operation) and goes to the \textit{consumer} (the coroutine that invoke the \texttt{receive} operation); originally, in \Kotlin channels were \textbf{bidirectional} and \textbf{symmetric} (one-to-one), but in the last updates of the language it is possible to have some \textit{asymmetric} behavior thanks to \href{https://kotlinlang.org/docs/channels.html#fan-out}{\textit{Fan-Out}} and \href{https://kotlinlang.org/docs/channels.html#fan-in}{\textit{Fan-In}} mechanisms.
+	Nevertheless, \Kotlin has more sophisticated tools to make multiple coroutines able to have an asymmetric communication and we will see them below. 
 	
 	\textbf{The semantic of \textit{send/receive} operations depends on the nature of the channel} that is determinated by its capacity, but the communication can be \textbf{synchronous} or \textbf{asynchronous} with also some little variations of these (for example, \textbf{rendez-vous}).
-	Notice that a channel can safely be shared between coroutines, but the developer has to pay attention because the \texttt{receive} operation can easily lead to competition problems if invoked parallel from two or more coroutines.
+	Notice that, as anticipated, a channel can safely be shared between coroutines, but the developer has to pay attention because the \texttt{receive} operation can easily lead to competition problems if invoked parallel from two or more coroutines.
 	
 	$\big[$See \href{https://github.com/LM-96/Activity-Project-Operating-Systems-M-/blob/main/code/kotlin/unibo.apos.examples/src/main/kotlin/unibo/apos/examples/ChannelPiCalculation.kt}{\texttt{ChannelPiCalculation.kt}} for a basic example$\big]$
 	
@@ -176,9 +177,9 @@ We highlight that \textbf{coroutines in \Kotlin can use shared memory or \textit
 	Flow can be more formally defined as \textbf{mono-directional, one-to-many and asynchronous} channels with the possibility to be \textbf{buffered} for replay strategies. In the latest versions of \Kotlin, flows replaced \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/-broadcast-channel/}{\texttt{BroadcastChannel}}.
 \end{itemize}
 
-\subsubsection{Suspending function}
+\subsubsection{Suspending functions}
 
-\textit{Suspending function} are normal \Kotlin methods but with the feature that \textbf{they can \textit{suspend} the execution of a coroutine}. The main example of suspending function it's \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/delay.html}{\texttt{delay}} that suspend the execution of coroutine which calls it for a specified time.
+\textit{Suspending functions} are normal \Kotlin methods but with the feature that \textbf{they can \textit{suspend} the execution of a coroutine}. The main example of suspending function it's \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines/delay.html}{\texttt{delay}} that suspends the execution of the coroutine which calls it for a specified time.
 
 Let's make an example (\href{https://github.com/LM-96/Activity-Project-Operating-Systems-M-/blob/main/code/kotlin/unibo.apos.examples/src/main/kotlin/unibo/apos/examples/SuspendingFunctionExample.kt}{\texttt{SuspendingFunctionExample.kt}}):
 \begin{lstlisting}[language=Kotlin]
@@ -272,9 +273,9 @@ The example shows some important characteristic of \Kotlin coroutines and suspen
 	\item The instruction \texttt{cancelAndJoin()} let the developer easy to cancel a coroutine, waiting for its end.
 \end{enumerate}
 
-By concluding, a \textbf{suspending function} is a \Kotlin \textbf{method able to suspend the coroutine that calls it without blocking the executing thread}. At the implementation point of view, suspending function are normal method with an \textit{hidden} parameter of type \href{https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation/}{Continuation} that is automatically added when the code is compiled. The implementations of this class that are built-in provided are used by coroutines to save their state before a suspension point.
+To conclude, a \textbf{suspending function} is a \Kotlin \textbf{method able to suspend the coroutine that calls it without blocking the executing thread}. From the implementation point of view, a suspending function is a normal method with an \textit{hidden} parameter of type \href{https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.coroutines/-continuation/}{\texttt{Continuation}} that is automatically added when the code is compiled. The implementation of this class that is provided built-in, is used by the coroutines to save their state before a suspension point.
 
-To understand, suppose to compile the shown example \texttt{SuspendingFunctionExample.kt} on a desktop machine with \texttt{JVM}. After the normal \Kotlin compilation we will have the executable \texttt{SuspendingFunctionExampleKt.class}, and if we decompile\footnote{For example using \href{https://java-decompiler.github.io/}{\textit{JD-GUI}}.} we will see that all the suspending functions have this \texttt{Java} signature:
+To understand, suppose to compile the example \texttt{SuspendingFunctionExample.kt} that has been shown before on a desktop machine with \texttt{JVM}. After the normal \Kotlin compilation we will have the executable \texttt{SuspendingFunctionExampleKt.class}, and if we decompile\footnote{For example using \href{https://java-decompiler.github.io/}{\textit{JD-GUI}}.} we will see that all the suspending functions have this \texttt{Java} signature:
 
 \begin{lstlisting}
 	public static final Object sleep(@NotNull String who, long timeMillis,
@@ -289,6 +290,15 @@ To understand, suppose to compile the shown example \texttt{SuspendingFunctionEx
 \end{lstlisting}
 
 So, a suspending function is simply compiled into a \texttt{Java} method with a \texttt{Continuation} as last parameter that can be used to suspend the coroutine that calls the function.
+
+\subsubsection{Fast overview on flows}
+
+As anticipated, even if it is possible to use \Kotlin channels with an asymmetric communication, invoking the \texttt{receive} on the same channel in parallel from multiple coroutines can cause leaks or unexpected situations. In addition, \textbf{the information that is sent on a channel is not replicated}, so if there are multiple coroutines waiting on the same channel, only one of them will receive the information that is sent on the channel, without direct control of the developer\footnote{In the sense that the developer can not directly choose which coroutine has to read the message.}.
+This problem occurs only at the \textit{receive} size: if more coroutines send messages over the same channel but there is only one \textit{consumer} at the other side, there is no problem. Then, in \Kotlin \textbf{it is possible to use channels to realize \textit{many-to-one} communication}.
+
+Nevertheless, in many situations it is useful to realize cooperation using a \textit{one-to-many} that, as said, is not \textit{safe} directly using channel. For this reason, \Kotlin originally provided the \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.channels/-broadcast-channel/}{\texttt{BroadcastChannel}} as the official and safe way to make a \textit{sender} able to interact with multiple \textit{receivers}.
+
+Anyway, as you can read in the official documentation, the \texttt{BroadcastChannel} \textit{api} is deprecated since the \texttt{1.5.0} version of \Kotlin and replaced with \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-shared-flow/}{\texttt{SharedFlow}} that is an implementation of \href{https://kotlinlang.org/api/kotlinx.coroutines/kotlinx-coroutines-core/kotlinx.coroutines.flow/-flow/}{\texttt{Flow}} interface.
 
 \subsection{\Go concurrency overview}
 
