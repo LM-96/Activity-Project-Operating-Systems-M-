@@ -40,6 +40,3 @@ inline fun <reified T> createMatrix(rows: Int, columns: Int, init: (Int, Int) ->
 inline fun <reified T> createMatrix(rows: Int, columns: Int): Matrix<T?> {
     return Array(rows){ arrayOfNulls<T>(columns) }
 }
-
-
-

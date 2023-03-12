@@ -26,15 +26,30 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
 
-    // Use the Kotlin test library.
-    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+//    // Use the Kotlin test library.
+//    testImplementation 'org.jetbrains.kotlin:kotlin-test'
+//
+//    // Use the Kotlin JUnit integration.
+//    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
 
-    // Use the Kotlin JUnit integration.
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.2'
+
+    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.2'
+
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-engine
+    testImplementation group: 'org.junit.platform', name: 'junit-platform-suite-engine', version: '1.9.2'
+
+    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite
+    testImplementation group: 'org.junit.platform', name: 'junit-platform-suite', version: '1.9.2'
 
     //COROUTINES
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
     implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.6.4'
 
+}
 
+test {
+    useJUnitPlatform()
 }
