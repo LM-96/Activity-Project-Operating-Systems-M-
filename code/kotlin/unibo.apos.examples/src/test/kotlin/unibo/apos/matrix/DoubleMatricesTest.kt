@@ -1,10 +1,9 @@
-package unibo.apos.matrix.primitive
+package unibo.apos.matrix
 
 import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import unibo.apos.matrix.*
 
 class DoubleMatricesTest {
 
