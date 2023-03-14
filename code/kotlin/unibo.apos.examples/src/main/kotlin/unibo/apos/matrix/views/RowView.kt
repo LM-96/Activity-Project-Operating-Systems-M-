@@ -19,8 +19,8 @@ class RowView(
 ) {
 
     init {
-        if(row < 0 || row > countMatrixRows(matrix)) {
-            throw IndexOutOfBoundsException("row index $row is not valid for matrix with rows ${countMatrixRows(matrix)}")
+        if(row < 0 || row > matrix.countMatrixRows()) {
+            throw IndexOutOfBoundsException("row index $row is not valid for matrix with rows ${matrix.countMatrixRows()}")
         }
     }
 

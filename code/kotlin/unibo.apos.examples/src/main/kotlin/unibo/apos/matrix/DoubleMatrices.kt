@@ -10,7 +10,6 @@ import unibo.apos.matrix.views.RowView
 typealias Matrix = Array<DoubleArray>
 
 /* CREATION ********************************************************************************************************* */
-
 /**
  * Create a new empty [Matrix] of [Double].
  * Each element of the resulting matrix will be `0`.
@@ -164,12 +163,12 @@ fun Array<DoubleArray>.toMatrix(): Matrix {
  */
 fun Array<DoubleArray>.reshapedMatrix(rows: Int = this.size, columns: Int = this.maxOf { it.size }): Array<DoubleArray> {
     return Array(rows) { rowIdx ->
-        val currentRow = this[rowIdx]
-        return@Array DoubleArray(columns) { colIdx ->
-            return@DoubleArray if(colIdx < currentRow.size)
-                currentRow[colIdx]
-            else
-                0.0
+        return@Array if(rowIdx < this.size) {
+            val currentRow = this[rowIdx]
+            currentRow
+                .copyInto(DoubleArray(columns), 0, 0, currentRow.size.coerceAtMost(columns))
+        } else {
+            DoubleArray(columns)
         }
     }
 }
@@ -205,7 +204,7 @@ fun Matrix.countMatrixColumns(): Int {
  * a matrix using the [toMatrix] or the [reshapedMatrix] function, so an [IllegalArgumentException] will be thrown
  */
 @Throws(IllegalArgumentException::class)
-fun Array<DoubleArray>.validateOrThrows() {
+fun Array<DoubleArray>.validateMatrixShapeOrThrows() {
     if(!hasMatrixShape())
         throw IllegalArgumentException()
 }
