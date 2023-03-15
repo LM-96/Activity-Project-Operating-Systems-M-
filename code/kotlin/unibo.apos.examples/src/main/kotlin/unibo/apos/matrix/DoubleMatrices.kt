@@ -2,6 +2,8 @@ package unibo.apos.matrix
 
 import unibo.apos.matrix.views.ColumnView
 import unibo.apos.matrix.views.RowView
+import java.lang.StringBuilder
+import java.util.StringJoiner
 
 /**
  * The matrix type alias for an [Array] of rows in which each element is the [DoubleArray]
@@ -220,6 +222,22 @@ fun Array<DoubleArray>.hasMatrixShape(): Boolean {
     if(this.isNotEmpty() && this.map { it.size }.distinct().count() != 1)
         return false
     return true
+}
+
+/* STRING CONVERSION ************************************************************************************************ */
+/**
+ * Creates and returns a [String] representation of this matrix
+ *
+ * @return a [String] representation of this matrix
+ */
+fun Matrix.matrixToString(): String {
+    val sj = StringJoiner(",\n ", "[", "]")
+    this.forEach { row ->
+        val rowSj = StringJoiner(", ", "[", "]")
+        row.forEach { rowSj.add(it.toString()) }
+        sj.add(rowSj.toString())
+    }
+    return sj.toString()
 }
 
 /* VIEWS ************************************************************************************************************ */

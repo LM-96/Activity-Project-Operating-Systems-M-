@@ -1,16 +1,27 @@
 package unibo.apos.matrix.algebra.product
 
-import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Assertions.assertArrayEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 import unibo.apos.matrix.Matrix
 import unibo.apos.matrix.createMatrix
 import unibo.apos.matrix.row
+import java.util.stream.Stream
+
 
 class MatrixProductTest {
 
     companion object {
-        val EXECUTORS = listOf<MatrixProductExecutor>(SeqIJKMatrixProductExecutor())
+
+        @JvmStatic
+        fun providedExecutors(): Stream<Arguments> {
+            return Stream.of(
+                Arguments.of(SeqIJKMatrixProductExecutor()),
+                Arguments.of(SeqIKJMatrixProductExecutor())
+            )
+        }
 
         val MAT_A: Matrix = createMatrix {
             row[1.0, 2.0, 3.0]
@@ -29,11 +40,10 @@ class MatrixProductTest {
         }
     }
 
-    @Test
-    fun testMatAXMatB_isMatC() {
-        EXECUTORS.forEach {
-            assertArrayEquals(MAT_C, it.multiply(MAT_A, MAT_B))
-        }
+    @ParameterizedTest
+    @MethodSource("providedExecutors")
+    fun testMatAXMatB_isMatC(productExecutor: MatrixProductExecutor) {
+        assertArrayEquals(MAT_C, productExecutor.multiply(MAT_A, MAT_B))
     }
 
 }
