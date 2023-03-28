@@ -9,6 +9,8 @@ import org.apache.commons.csv.CSVPrinter
 import unibo.apos.matrix.Matrix
 import unibo.apos.matrix.algebra.product.SeqIJKMatrixProductExecutor
 import unibo.apos.matrix.algebra.product.SeqIKJMatrixProductExecutor
+import unibo.apos.matrix.app.DEFAULT_RANDOM_DOUBLE_BOUND
+import unibo.apos.matrix.app.parseArgs
 import unibo.apos.matrix.createMatrix
 import java.nio.file.StandardOpenOption
 import java.time.LocalDateTime
@@ -17,11 +19,11 @@ import kotlin.io.path.Path
 import kotlin.io.path.bufferedWriter
 import kotlin.random.Random
 
-val DEFAULT_RANDOM_DOUBLE_BOUND: Double = 10.0
 val PRODUCT_EXECUTORS = arrayOf(
     SeqIJKMatrixProductExecutor(),
     SeqIKJMatrixProductExecutor()
 )
+
 fun generateRandomMatrix(row: Int, columns: Int, randomBound: Double = DEFAULT_RANDOM_DOUBLE_BOUND): Matrix {
     return createMatrix(row, columns) { _, _ -> Random.Default.nextDouble(randomBound) }
 }
@@ -42,25 +44,6 @@ data class ResultCsvEntry(
     val elapsedMillis: Long
 )
 
-fun parseArgs(args: Array<String>): Arguments {
-    val parser = ArgParser("MatrixProductApp")
-    val dim by parser
-        .option(ArgType.Int, fullName = "dim", shortName = "d", description = "the dimension of the matrix")
-        .required()
-    val randomBound by parser
-        .option(ArgType.Double, fullName = "random-bound", shortName = "rb",
-            description = "the bound for the generation of the random elements of the matrix")
-        .default(DEFAULT_RANDOM_DOUBLE_BOUND)
-    val csvPath by parser
-        .option(ArgType.String, fullName = "csv-path", shortName = "csv", description = "the path of the csv file to store the results")
-    val threads by parser
-        .option(ArgType.Int, fullName = "thread-number", shortName = "t", description = "the number of the threads/coroutines to be used")
-        .default(1)
-
-    parser.parse(args)
-    return Arguments(dim, threads, randomBound, csvPath)
-}
-
 fun saveResults(csvPath: String, results: Collection<ResultCsvEntry>) {
     val writer = Path(csvPath)
         .bufferedWriter(options = arrayOf(StandardOpenOption.CREATE, StandardOpenOption.APPEND))
@@ -71,7 +54,14 @@ fun saveResults(csvPath: String, results: Collection<ResultCsvEntry>) {
     val csvPrinter = CSVPrinter(writer, csvFormat)
     csvPrinter.use { printer ->
         results.forEach { entry ->
-            printer.printRecord(entry.language, entry.method, entry.threads, entry.matrixDimension, entry.date, entry.elapsedMillis)
+            printer.printRecord(
+                entry.language,
+                entry.method,
+                entry.threads,
+                entry.matrixDimension,
+                entry.date,
+                entry.elapsedMillis
+            )
         }
         printer.flush()
     }
@@ -92,9 +82,11 @@ fun main(args: Array<String>) {
             it.multiply(matA, matB)
             val endTime = System.nanoTime()
 
-            var threads: Int = if(it.javaClass.simpleName.startsWith("Seq")) 1 else parsedArgs.threads
-            ResultCsvEntry("kotlin", it.javaClass.simpleName, threads, parsedArgs.dim,
-                date, TimeUnit.NANOSECONDS.toMillis(endTime - startTime))
+            var threads: Int = if (it.javaClass.simpleName.startsWith("Seq")) 1 else parsedArgs.coroutines
+            ResultCsvEntry(
+                "kotlin", it.javaClass.simpleName, threads, parsedArgs.dim,
+                date, TimeUnit.NANOSECONDS.toMillis(endTime - startTime)
+            )
         }
 
     results.forEach(System.out::println)

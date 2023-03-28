@@ -6,23 +6,23 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlin.system.measureNanoTime
 
-fun CoroutineScope.launchChannelPiWorker(channel : Channel<Double>, k : Double) {
+fun CoroutineScope.launchChannelPiWorker(channel: Channel<Double>, k: Double) {
     launch {
         channel.send(term(k))
     }
 }
 
-fun channelPiCalculation(workers : Int) : PiCalculation {
+fun channelPiCalculation(workers: Int): PiCalculation {
 
     var pi = 0.0
     val elapsedTime = measureNanoTime {
         val ch = Channel<Double>(Channel.UNLIMITED)
 
         runBlocking {
-            for(k in 0..workers) {
+            for (k in 0..workers) {
                 launchChannelPiWorker(ch, k.toDouble())
             }
-            for(k in 0..workers) {
+            for (k in 0..workers) {
                 pi += ch.receive()
             }
         }

@@ -26,6 +26,13 @@ dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:31.0.1-jre'
 
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-serialization-json-jvm
+    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.5.0'
+
+    // https://mvnrepository.com/artifact/com.google.code.gson/gson
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+
 //    // Use the Kotlin test library.
 //    testImplementation 'org.jetbrains.kotlin:kotlin-test'
 //

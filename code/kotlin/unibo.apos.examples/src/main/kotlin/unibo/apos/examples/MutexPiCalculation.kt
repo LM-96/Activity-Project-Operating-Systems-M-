@@ -14,7 +14,7 @@ import kotlin.system.measureNanoTime
  * object and manage the concurrency.
  */
 class NaiveAtomicAddableDouble(
-    private var value : Double = 0.0
+    private var value: Double = 0.0
 ) {
 
     private val mutex = Mutex()
@@ -25,7 +25,7 @@ class NaiveAtomicAddableDouble(
      *
      * @param quantity the quantity to be added
      */
-    suspend fun add(quantity : Double) {
+    suspend fun add(quantity: Double) {
         mutex.withLock {
             value += quantity
         }
@@ -37,7 +37,7 @@ class NaiveAtomicAddableDouble(
      *
      * @return the current value of this double
      */
-    fun get() : Double {
+    fun get(): Double {
         return value
     }
 }
@@ -49,18 +49,18 @@ class NaiveAtomicAddableDouble(
  * @param k
  * @return
  */
-fun CoroutineScope.launchMutexPiWorker(sharedPi : NaiveAtomicAddableDouble, k : Double) : Job {
+fun CoroutineScope.launchMutexPiWorker(sharedPi: NaiveAtomicAddableDouble, k: Double): Job {
     return launch {
         sharedPi.add(term(k))
     }
 }
 
-fun mutexPiCalculation(workers : Int) : PiCalculation {
+fun mutexPiCalculation(workers: Int): PiCalculation {
     val sharedPi = NaiveAtomicAddableDouble()
     val jobs = mutableListOf<Job>()
     val elapsedTime = measureNanoTime {
         runBlocking {
-            for(k in 0 until workers) {
+            for (k in 0 until workers) {
                 jobs[k] = launchMutexPiWorker(sharedPi, k.toDouble())
             }
             jobs.joinAll()

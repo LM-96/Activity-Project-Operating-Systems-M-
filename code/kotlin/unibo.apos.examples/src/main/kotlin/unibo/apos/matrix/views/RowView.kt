@@ -19,7 +19,7 @@ class RowView(
 ) {
 
     init {
-        if(row < 0 || row > matrix.countMatrixRows()) {
+        if (row < 0 || row > matrix.countMatrixRows()) {
             throw IndexOutOfBoundsException("row index $row is not valid for matrix with rows ${matrix.countMatrixRows()}")
         }
     }
@@ -52,18 +52,18 @@ class RowView(
     }
 
     override operator fun equals(other: Any?): Boolean {
-        if(other == null)
+        if (other == null)
             return false
 
-        if(other is DoubleArray) {
+        if (other is DoubleArray) {
             return matrix[row].contentEquals(other)
         }
 
-        if(other is IntArray) {
+        if (other is IntArray) {
             return matrix[row].contentEquals(other.map { it.toDouble() }.toDoubleArray())
         }
 
-        if(other is RowView)
+        if (other is RowView)
             return matrix[row].contentEquals(other.matrix[other.row])
 
         return false
@@ -77,13 +77,13 @@ class RowView(
      * @return
      */
     fun contentEquals(other: Any?): Boolean {
-        if(other == null)
+        if (other == null)
             return false
 
-        if(this == other)
+        if (this == other)
             return true
 
-        if(other is ColumnView) {
+        if (other is ColumnView) {
             return matrix[row].contentEquals(other.toArray())
         }
 

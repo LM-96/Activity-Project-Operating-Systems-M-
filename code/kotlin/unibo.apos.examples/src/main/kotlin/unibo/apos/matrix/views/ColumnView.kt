@@ -15,10 +15,11 @@ import unibo.apos.matrix.countMatrixColumns
  */
 class ColumnView(
     private val matrix: Array<DoubleArray>,
-    private val column: Int) {
+    private val column: Int
+) {
 
     init {
-        if(column < 0 || column >= matrix.countMatrixColumns())
+        if (column < 0 || column >= matrix.countMatrixColumns())
             throw IndexOutOfBoundsException("column index $column is not valid for matrix with columns ${matrix.countMatrixColumns()}")
     }
 
@@ -51,22 +52,22 @@ class ColumnView(
     }
 
     override operator fun equals(other: Any?): Boolean {
-        if(other == null)
+        if (other == null)
             return false
 
-        if(other is DoubleArray) {
+        if (other is DoubleArray) {
             return !IntRange(0, getSize())
                 .map { matrix[it][column] == other[it] }
                 .contains(false)
         }
 
-        if(other is IntArray) {
+        if (other is IntArray) {
             return !IntRange(0, getSize())
                 .map { matrix[it][column] == other[it].toDouble() }
                 .contains(false)
         }
 
-        if(other is ColumnView)
+        if (other is ColumnView)
             return !IntRange(0, getSize())
                 .map { matrix[it][column] == other.matrix[it][other.column] }
                 .contains(false)
@@ -82,13 +83,13 @@ class ColumnView(
      * @return
      */
     fun contentEquals(other: Any?): Boolean {
-        if(other == null)
+        if (other == null)
             return false
 
-        if(this == other)
+        if (this == other)
             return true
 
-        if(other is RowView) {
+        if (other is RowView) {
             return toArray().contentEquals(other.toArray())
         }
 

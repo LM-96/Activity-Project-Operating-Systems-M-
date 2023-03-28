@@ -11,7 +11,7 @@ import kotlin.coroutines.coroutineContext
  * @param who the name of the coroutine that invokes the method
  * @param timeMillis the time the coroutine have to sleep in milliseconds
  */
-suspend fun sleep(who : String, timeMillis : Long) {
+suspend fun sleep(who: String, timeMillis: Long) {
     println("$who: I'm going to sleep for $timeMillis milliseconds...")
     delay(timeMillis)
     println("$who: Good morning, I wake up!")
@@ -25,7 +25,7 @@ suspend fun sleep(who : String, timeMillis : Long) {
  * @param who the name of the coroutine that invokes the method
  * @param pollingTime the time of the polling (*sleep* time)
  */
-suspend fun pollAlive(who : String, pollingTime : Long) {
+suspend fun pollAlive(who: String, pollingTime: Long) {
     while (true) {
         delay(pollingTime)
         println("$who: i'm alive [thread=${Thread.currentThread()}]")
@@ -38,9 +38,11 @@ suspend fun pollAlive(who : String, pollingTime : Long) {
  *
  * @param who the name of the coroutine that invokes the method
  */
-suspend fun sayHello(who : String) {
-    println("$who : Hello... I'm a coroutine " +
-            "[thread=${Thread.currentThread()}]")
+suspend fun sayHello(who: String) {
+    println(
+        "$who : Hello... I'm a coroutine " +
+                "[thread=${Thread.currentThread()}]"
+    )
     println("$who : My context: $coroutineContext")
 }
 

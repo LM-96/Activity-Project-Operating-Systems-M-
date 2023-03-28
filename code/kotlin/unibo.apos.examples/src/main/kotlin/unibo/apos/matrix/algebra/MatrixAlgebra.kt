@@ -22,10 +22,10 @@ internal var MATRIX_PRODUCT_EXECUTOR: MatrixProductExecutor = SeqIJKMatrixProduc
  * rows of [matB]
  */
 @Throws(IllegalArgumentException::class, MatrixShapeException::class)
-fun Matrix.multiply(matB : Matrix): Matrix {
+fun Matrix.multiply(matB: Matrix): Matrix {
     this.validateMatrixShapeOrThrows()
     matB.validateMatrixShapeOrThrows()
-    if(this[0].size != matB.size)
+    if (this[0].size != matB.size)
         throw MatrixShapeException("this matrix has ${this[0].size} columns but matB has ${matB.size} rows")
 
     return MATRIX_PRODUCT_EXECUTOR.multiply(this, matB)

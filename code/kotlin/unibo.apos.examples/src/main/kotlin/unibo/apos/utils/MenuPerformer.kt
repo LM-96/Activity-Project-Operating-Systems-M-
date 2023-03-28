@@ -4,16 +4,16 @@ import java.io.BufferedReader
 import java.io.BufferedWriter
 
 class IOMenuPerformer(
-    val menu : Menu,
-    val writer : BufferedWriter,
-    val reader : BufferedReader,
+    val menu: Menu,
+    val writer: BufferedWriter,
+    val reader: BufferedReader,
 ) {
 
-    fun askForChoice(question : String = "Type your choice") : MenuEntry? {
+    fun askForChoice(question: String = "Type your choice"): MenuEntry? {
         writer.newLine()
         writer.write("*** ${menu.title} ***************")
-        for(e in menu.getEntries().entries) {
-            if(e.value.enabled) {
+        for (e in menu.getEntries().entries) {
+            if (e.value.enabled) {
                 writer.write("\n\t[${e.key}] -> ${e.value.description}")
             }
         }
@@ -25,15 +25,15 @@ class IOMenuPerformer(
         writer.flush()
 
         val entry = menu[res]
-        if(entry != null)
+        if (entry != null)
             menu.select(entry.id)
 
         return entry
     }
 
-    fun askUntilValidChoice(question : String = "Type your choice") : MenuEntry {
+    fun askUntilValidChoice(question: String = "Type your choice"): MenuEntry {
         var choice = askForChoice(question)
-        while(choice == null) {
+        while (choice == null) {
             writer.write("\t\t !! INVALID CHOICE")
             writer.newLine()
             writer.flush()
@@ -45,36 +45,38 @@ class IOMenuPerformer(
 
 }
 
-fun stdMenuPerformer(menu : Menu) : IOMenuPerformer =
+fun stdMenuPerformer(menu: Menu): IOMenuPerformer =
     IOMenuPerformer(menu, System.out.bufferedWriter(), System.`in`.bufferedReader())
 
-fun stdMenuUntilExit(title : String,
-                     exitEntryId : String = "exit",
-                     exitEntryDescription : String = "exit",
-                     question : String = "Type your choice",
-                     builder : MenuBuilder.() -> Unit,
+fun stdMenuUntilExit(
+    title: String,
+    exitEntryId: String = "exit",
+    exitEntryDescription: String = "exit",
+    question: String = "Type your choice",
+    builder: MenuBuilder.() -> Unit,
 ) {
     val menu = menu(title, builder)
     menu.addEntry(exitEntryId, exitEntryDescription)
     val performer = stdMenuPerformer(menu)
     var exit = false
-    while(!exit) {
+    while (!exit) {
         exit = (performer.askUntilValidChoice().id == exitEntryId)
     }
 
 }
 
-fun stdAutoMenuUntilExit(title : String,
-                     exitEntryId : String = "exit",
-                     exitEntryDescription : String = "exit",
-                     question : String = "Type your choice",
-                     builder : EnumIdMenuBuilder.() -> Unit,
+fun stdAutoMenuUntilExit(
+    title: String,
+    exitEntryId: String = "exit",
+    exitEntryDescription: String = "exit",
+    question: String = "Type your choice",
+    builder: EnumIdMenuBuilder.() -> Unit,
 ) {
     val menu = autoMenu(title, builder)
     menu.addEntry(exitEntryId, exitEntryDescription)
     val performer = stdMenuPerformer(menu)
     var exit = false
-    while(!exit) {
+    while (!exit) {
         exit = (performer.askUntilValidChoice().id == exitEntryId)
     }
 

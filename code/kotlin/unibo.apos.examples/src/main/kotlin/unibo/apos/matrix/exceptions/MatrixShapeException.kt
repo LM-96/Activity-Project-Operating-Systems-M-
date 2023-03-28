@@ -1,3 +1,3 @@
 package unibo.apos.matrix.exceptions
 
-class MatrixShapeException(msg: String): Exception(msg)
+class MatrixShapeException(msg: String) : Exception(msg)

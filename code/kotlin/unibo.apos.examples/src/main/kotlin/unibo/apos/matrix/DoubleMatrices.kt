@@ -20,7 +20,7 @@ typealias Matrix = Array<DoubleArray>
  * @param columns the number of the columns
  * @return the new created matrix
  */
-fun createMatrix(rows: Int, columns: Int) : Matrix {
+fun createMatrix(rows: Int, columns: Int): Matrix {
     return Array(rows) { DoubleArray(columns) }
 }
 
@@ -37,8 +37,8 @@ fun createMatrix(rows: Int, columns: Int) : Matrix {
  */
 fun createMatrix(rows: Int, columns: Int, generator: (Int, Int) -> Double): Matrix {
     return Array(rows) { currentRowIdx ->
-        DoubleArray(columns) { currentColumnIdx -> generator(currentRowIdx, currentColumnIdx)  }
-        }
+        DoubleArray(columns) { currentColumnIdx -> generator(currentRowIdx, currentColumnIdx) }
+    }
 }
 
 @DslMarker
@@ -49,7 +49,8 @@ internal annotation class MatrixDSL
  *
  * @constructor Create empty Row
  */
-@MatrixDSL object row
+@MatrixDSL
+object row
 
 /**
  * A builder for a [Matrix] which exposes the function [MatrixBuilder.row] to accumulate
@@ -72,8 +73,8 @@ class MatrixBuilder {
     @MatrixDSL
     @Throws(IllegalArgumentException::class)
     fun row(vararg elements: Double) {
-        if(rows.isNotEmpty())
-            if(elements.size != rows[0].size)
+        if (rows.isNotEmpty())
+            if (elements.size != rows[0].size)
                 throw IllegalArgumentException("the row [$elements] is not of the required length ${rows[0].size}")
         rows.add(elements)
     }
@@ -139,7 +140,7 @@ fun createMatrix(init: MatrixBuilder.() -> Unit): Matrix {
  * @return the new created matrix
  */
 fun Array<DoubleArray>.toMatrix(): Matrix {
-    if(this.isEmpty())
+    if (this.isEmpty())
         return arrayOf()
 
     return this.reshapedMatrix(this.size, this.maxOf { it.size })
@@ -163,9 +164,12 @@ fun Array<DoubleArray>.toMatrix(): Matrix {
  * @param columns the number of the columns the matrix will have
  * @return the reshaped matrix
  */
-fun Array<DoubleArray>.reshapedMatrix(rows: Int = this.size, columns: Int = this.maxOf { it.size }): Array<DoubleArray> {
+fun Array<DoubleArray>.reshapedMatrix(
+    rows: Int = this.size,
+    columns: Int = this.maxOf { it.size }
+): Array<DoubleArray> {
     return Array(rows) { rowIdx ->
-        return@Array if(rowIdx < this.size) {
+        return@Array if (rowIdx < this.size) {
             val currentRow = this[rowIdx]
             currentRow
                 .copyInto(DoubleArray(columns), 0, 0, currentRow.size.coerceAtMost(columns))
@@ -195,7 +199,7 @@ fun Matrix.countMatrixRows(): Int {
  * @return the number of the columns in this matrix
  */
 fun Matrix.countMatrixColumns(): Int {
-    if(this.isEmpty())
+    if (this.isEmpty())
         return 0
     return this[0].size
 }
@@ -207,7 +211,7 @@ fun Matrix.countMatrixColumns(): Int {
  */
 @Throws(IllegalArgumentException::class)
 fun Array<DoubleArray>.validateMatrixShapeOrThrows() {
-    if(!hasMatrixShape())
+    if (!hasMatrixShape())
         throw IllegalArgumentException()
 }
 
@@ -219,7 +223,7 @@ fun Array<DoubleArray>.validateMatrixShapeOrThrows() {
  * a matrix, `false` otherwise
  */
 fun Array<DoubleArray>.hasMatrixShape(): Boolean {
-    if(this.isNotEmpty() && this.map { it.size }.distinct().count() != 1)
+    if (this.isNotEmpty() && this.map { it.size }.distinct().count() != 1)
         return false
     return true
 }
