@@ -8,7 +8,7 @@ import kotlinx.coroutines.channels.SendChannel
 import unibo.apos.matrix.Matrix
 import unibo.apos.matrix.createMatrix
 
-class ParallelDedicatedChannelGuidedIJKMatrixProductExecutor(
+class ParallelDedicatedChannelGuidedMPE(
     var concurrentUnits: Int = DEFAULT_CONCURRENT_UNITS
 ): MatrixProductExecutor{
 

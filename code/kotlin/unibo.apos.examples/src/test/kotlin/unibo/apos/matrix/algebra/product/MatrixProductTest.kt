@@ -20,7 +20,7 @@ class MatrixProductTest {
                 Arguments.of(SeqIJKMPE()),
                 Arguments.of(SeqIKJMPE()),
                 Arguments.of(ParallelSingleChannelGuidedMPE()),
-                Arguments.of(ParallelDedicatedChannelGuidedIJKMatrixProductExecutor())
+                Arguments.of(ParallelDedicatedChannelGuidedMPE())
             )
         }
 
