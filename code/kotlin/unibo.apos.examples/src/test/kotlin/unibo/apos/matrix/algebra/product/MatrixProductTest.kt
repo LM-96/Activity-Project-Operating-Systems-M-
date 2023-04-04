@@ -1,7 +1,6 @@
 package unibo.apos.matrix.algebra.product
 
 import org.junit.jupiter.api.Assertions.assertArrayEquals
-import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
@@ -18,9 +17,10 @@ class MatrixProductTest {
         @JvmStatic
         fun providedExecutors(): Stream<Arguments> {
             return Stream.of(
-                Arguments.of(SeqIJKMatrixProductExecutor()),
-                Arguments.of(SeqIKJMatrixProductExecutor()),
-                Arguments.of(ParallelChannelGuidedIJKMatrixProductExecutor())
+                Arguments.of(SeqIJKMPE()),
+                Arguments.of(SeqIKJMPE()),
+                Arguments.of(ParallelSingleChannelGuidedMPE()),
+                Arguments.of(ParallelDedicatedChannelGuidedIJKMatrixProductExecutor())
             )
         }
 

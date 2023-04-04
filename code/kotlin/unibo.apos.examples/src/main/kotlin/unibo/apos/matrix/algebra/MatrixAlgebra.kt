@@ -2,11 +2,11 @@ package unibo.apos.matrix.algebra
 
 import unibo.apos.matrix.Matrix
 import unibo.apos.matrix.algebra.product.MatrixProductExecutor
-import unibo.apos.matrix.algebra.product.SeqIJKMatrixProductExecutor
+import unibo.apos.matrix.algebra.product.SeqIJKMPE
 import unibo.apos.matrix.exceptions.MatrixShapeException
 import unibo.apos.matrix.validateMatrixShapeOrThrows
 
-internal var MATRIX_PRODUCT_EXECUTOR: MatrixProductExecutor = SeqIJKMatrixProductExecutor()
+internal var MATRIX_PRODUCT_EXECUTOR: MatrixProductExecutor = SeqIJKMPE()
 
 /**
  * Performs the matrix multiplication between `this` (on the left side) and the given [matB] (on the right size) matrix,

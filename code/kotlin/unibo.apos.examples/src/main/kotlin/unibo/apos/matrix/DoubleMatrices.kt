@@ -207,12 +207,19 @@ fun Matrix.countMatrixColumns(): Int {
 /**
  * Validates this [Array] of [DoubleArray] checking if each row has the same number of elements.
  * If not, this array is not coherent with the definition of [Matrix] and needs to be *converted* to
- * a matrix using the [toMatrix] or the [reshapedMatrix] function, so an [IllegalArgumentException] will be thrown
+ * a matrix using the [toMatrix] or the [reshapedMatrix] function, so an exception will be thrown ([IllegalArgumentException]
+ * as default).
+ *
+ * @param exceptionBuilder the function that creates the exception which has to be thrown; this function
+ * takes `this` matrix as receiver
  */
 @Throws(IllegalArgumentException::class)
-fun Array<DoubleArray>.validateMatrixShapeOrThrows() {
+fun Array<DoubleArray>.validateMatrixShapeOrThrows(exceptionBuilder: (Matrix.() -> Exception)? = null) {
     if (!hasMatrixShape())
-        throw IllegalArgumentException()
+        if(exceptionBuilder != null)
+            throw exceptionBuilder(this)
+        else
+            throw IllegalArgumentException("matrix shape [${this.countMatrixRows()}x${this.countMatrixColumns()}] is not valid")
 }
 
 /**

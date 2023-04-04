@@ -8,11 +8,11 @@ import kotlinx.coroutines.channels.SendChannel
 import unibo.apos.matrix.Matrix
 import unibo.apos.matrix.createMatrix
 
-class ParallelChannelGuidedIJKMatrixProductExecutor(
-    var concurrentUnits: Int = 10
+class ParallelDedicatedChannelGuidedIJKMatrixProductExecutor(
+    var concurrentUnits: Int = DEFAULT_CONCURRENT_UNITS
 ): MatrixProductExecutor{
 
-    val scope: CoroutineScope = openChildrenScopeForProductExecutor(ParallelChannelGuidedIJKMatrixProductExecutor::class.java)
+    val scope: CoroutineScope = openChildrenScopeForProductExecutor(this::class.java)
     private lateinit var matA: Matrix
     private lateinit var matB: Matrix
     private lateinit var matC: Matrix
@@ -28,8 +28,8 @@ class ParallelChannelGuidedIJKMatrixProductExecutor(
                         matC[i][j] += matA[i][k] * matB[k][j]
                     }
                 }
-            } catch (crce: ClosedReceiveChannelException) {
-                return
+            } catch (_: ClosedReceiveChannelException) {
+                ackChannel.send(myId)
             }
         }
     }
@@ -59,6 +59,10 @@ class ParallelChannelGuidedIJKMatrixProductExecutor(
             for(i in 0 until  concurrentUnits) {
                 workerId = ackChannel.receive()
                 workerChannels[workerId].close()
+            }
+
+            for(i in 0 until concurrentUnits) {
+                ackChannel.receive()
             }
         }
         return matC
