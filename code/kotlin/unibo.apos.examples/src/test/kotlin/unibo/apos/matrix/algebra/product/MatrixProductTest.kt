@@ -19,7 +19,8 @@ class MatrixProductTest {
         fun providedExecutors(): Stream<Arguments> {
             return Stream.of(
                 Arguments.of(SeqIJKMatrixProductExecutor()),
-                Arguments.of(SeqIKJMatrixProductExecutor())
+                Arguments.of(SeqIKJMatrixProductExecutor()),
+                Arguments.of(ParallelChannelGuidedIJKMatrixProductExecutor())
             )
         }
 
