@@ -1,5 +1,7 @@
 package unibo.apos.minifsm
 
+import unibo.apos.minifsm.builders.miniWork
+
 fun main() {
 
     miniWork("main") {
@@ -11,7 +13,7 @@ fun main() {
             action = {
                 miniPrintln("counter = $counter")
                 counter++
-                Thread.sleep(1000L)
+                Thread.sleep(500L)
             }
             transition {
                 destination = "s1"
@@ -22,9 +24,9 @@ fun main() {
 
         state("s1") {
             action = {
-                println("$fsmName [state=$stateName]: counter = $counter")
+                miniPrintln("counter = $counter")
                 counter++
-                Thread.sleep(1000L)
+                Thread.sleep(500L)
             }
             transition {
                 destination = "s0"

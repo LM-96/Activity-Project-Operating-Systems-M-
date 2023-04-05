@@ -1,20 +1,17 @@
 package unibo.apos.minifsm
 
-data class MiniState(
+import java.util.Optional
+
+data class MiniState<I, O>(
     val name: String,
-    val transitions: Set<MiniTransition>,
-    val action: () -> Unit = {}
+    val fsmName: String,
+    val transitions: Set<MiniTransition<I>>,
+    val action: (I) -> O
 ) {
 
-    companion object {
-        const val INIT_STATE_NAME: String = "init"
+    fun getEnabledTransitionsForInput(input: I): List<MiniTransition<I>> =
+        transitions.filter { it.canTransit(input) }
 
-        fun buildInitial(fsmName: String, initialStateName: String): MiniState {
-            return MiniState(INIT_STATE_NAME,
-                setOf(createTransitionForFsmWithGeneratedId(fsmName, INIT_STATE_NAME, initialStateName)))
-        }
-    }
-
-    fun getEnabledTransition(): List<MiniTransition> =
-        transitions.filter { it.canTransit() }
+    fun getFirstEnabledTransitionForInput(input: I): Optional<MiniTransition<I>> =
+        Optional.ofNullable(transitions.find { it.canTransit(input) })
 }

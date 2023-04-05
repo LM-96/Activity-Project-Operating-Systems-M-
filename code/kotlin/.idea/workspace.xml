@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf19449d-a5fb-427b-8c6d-87131bf40be0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmBuilders.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmBuilders.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/Exceptions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/Exceptions.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsm.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmBuilders.kt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmTest.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniState.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniTransition.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniTransition.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -21,6 +26,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Kotlin Interface" />
         <option value="Kotlin Class" />
       </list>
     </option>
@@ -54,6 +60,11 @@
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="unibo.apos.minifsm.builders" />
+    </key>
+  </component>
   <component name="RunManager" selected="Kotlin.MiniFsmTestKt">
     <configuration name="MatrixProductTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
@@ -102,7 +113,7 @@
       <option name="presentableId" value="Default" />
       <updated>1680638793455</updated>
       <workItem from="1680638794701" duration="4719000" />
-      <workItem from="1680715931881" duration="8110000" />
+      <workItem from="1680715931881" duration="13074000" />
     </task>
     <servers />
   </component>
