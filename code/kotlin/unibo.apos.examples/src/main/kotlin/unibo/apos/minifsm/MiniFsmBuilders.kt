@@ -32,8 +32,16 @@ interface MiniFsmModel {
     var fsmName: String?
     var initialState: String?
 
-    fun state(stateBuilder: MiniStateBuilder.() -> Unit)
-    fun state(name: String, stateBuilder: MiniStateBuilder.() -> Unit)
+    fun state(stateBuilder: MiniStateModel.() -> Unit)
+    fun state(name: String, stateBuilder: MiniStateModel.() -> Unit)
+
+    fun MiniStateModel.miniFormat(line: String): String {
+        return "$fsmName [state=$stateName]: $line"
+    }
+
+    fun MiniStateModel.miniPrintln(line: String) {
+        println(miniFormat(line))
+    }
 }
 
 class MiniTransitionBuilder(
@@ -107,14 +115,14 @@ class MiniFsmBuilder(
 
     private val states: MutableSet<MiniState> = mutableSetOf()
 
-    override fun state(stateBuilder: MiniStateBuilder.() -> Unit) {
+    override fun state(stateBuilder: MiniStateModel.() -> Unit) {
         val state = MiniStateBuilder(fsmName)
             .apply(stateBuilder)
             .build()
         states.add(state)
     }
 
-    override fun state(name: String, stateBuilder: MiniStateBuilder.() -> Unit) {
+    override fun state(name: String, stateBuilder: MiniStateModel.() -> Unit) {
         val state = MiniStateBuilder(fsmName, name)
             .apply(stateBuilder)
             .build()
@@ -132,6 +140,13 @@ class MiniFsmBuilder(
             .apply { validateStateTransitionsOrThrow(this@MiniFsmBuilder.fsmName!!, this@MiniFsmBuilder.states) }
     }
 
+}
+
+fun miniWork(fsmName: String, miniFsmBuilder: MiniFsmModel.() -> Unit) {
+    MiniFsmBuilder(fsmName)
+        .apply(miniFsmBuilder)
+        .build()
+        .work()
 }
 
 @Throws(BuildException::class)

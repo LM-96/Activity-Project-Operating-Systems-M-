@@ -5,11 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf19449d-a5fb-427b-8c6d-87131bf40be0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsm.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmBuilders.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmBuilders.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -105,7 +102,7 @@
       <option name="presentableId" value="Default" />
       <updated>1680638793455</updated>
       <workItem from="1680638794701" duration="4719000" />
-      <workItem from="1680715931881" duration="7578000" />
+      <workItem from="1680715931881" duration="8110000" />
     </task>
     <servers />
   </component>

@@ -2,15 +2,14 @@ package unibo.apos.minifsm
 
 fun main() {
 
-    val mainFsm = miniFsm {
-        fsmName = "main"
+    miniWork("main") {
         initialState = "s0"
 
         var counter = 0
 
         state("s0") {
             action = {
-                println("$fsmName [state=$stateName]: counter = $counter")
+                miniPrintln("counter = $counter")
                 counter++
                 Thread.sleep(1000L)
             }
@@ -38,6 +37,4 @@ fun main() {
             }
         }
     }
-
-    mainFsm.work()
 }
