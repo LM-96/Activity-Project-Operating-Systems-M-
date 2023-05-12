@@ -3,7 +3,7 @@ package unibo.apos.matrix.algebra.product
 import unibo.apos.matrix.Matrix
 import unibo.apos.matrix.createMatrix
 
-class SeqIJKMPE : MatrixProductExecutor {
+class SeqIJKMatrixMultiplier : MatrixMultiplier {
 
     override fun multiply(matA: Matrix, matB: Matrix): Matrix {
         val res = createMatrix(matA.size, matB[0].size)

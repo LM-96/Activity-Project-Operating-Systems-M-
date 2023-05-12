@@ -1,12 +1,12 @@
 package unibo.apos.matrix.algebra
 
 import unibo.apos.matrix.Matrix
-import unibo.apos.matrix.algebra.product.MatrixProductExecutor
-import unibo.apos.matrix.algebra.product.SeqIJKMPE
+import unibo.apos.matrix.algebra.product.MatrixMultiplier
+import unibo.apos.matrix.algebra.product.SeqIJKMatrixMultiplier
 import unibo.apos.matrix.exceptions.MatrixShapeException
 import unibo.apos.matrix.validateMatrixShapeOrThrows
 
-internal var MATRIX_PRODUCT_EXECUTOR: MatrixProductExecutor = SeqIJKMPE()
+internal var MATRIX_MULTIPLIER: MatrixMultiplier = SeqIJKMatrixMultiplier()
 
 /**
  * Performs the matrix multiplication between `this` (on the left side) and the given [matB] (on the right size) matrix,
@@ -28,5 +28,5 @@ fun Matrix.multiply(matB: Matrix): Matrix {
     if (this[0].size != matB.size)
         throw MatrixShapeException("this matrix has ${this[0].size} columns but matB has ${matB.size} rows")
 
-    return MATRIX_PRODUCT_EXECUTOR.multiply(this, matB)
+    return MATRIX_MULTIPLIER.multiply(this, matB)
 }

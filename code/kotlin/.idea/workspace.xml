@@ -5,13 +5,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf19449d-a5fb-427b-8c6d-87131bf40be0" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/Exceptions.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/Exceptions.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsm.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmBuilders.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniFsmTest.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniState.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniState.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniTransition.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/minifsm/MiniTransition.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/MatrixProductApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/MatrixProductApp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/MatrixAlgebra.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/MatrixAlgebra.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/MatrixProductExecutor.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/MatrixMultiplier.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/ParallelDedicatedChannelGuidedMPE.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/ParallelDedicatedChannelGuidedMatrixMultiplier.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/ParallelMatrixProductExecutorScope.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/ParallelMatrixMultiplierScope.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/ParallelSingleChannelGuidedMPE.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/ParallelSingleChannelGuidedMatrixMultiplier.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/SeqIJKMPE.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/SeqIJKMatrixMultiplier.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/SeqIKJMPE.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/main/kotlin/unibo/apos/matrix/algebra/product/SeqIKJMatrixMultiplier.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unibo.apos.examples/src/test/kotlin/unibo/apos/matrix/algebra/product/MatrixProductTest.kt" beforeDir="false" afterPath="$PROJECT_DIR$/unibo.apos.examples/src/test/kotlin/unibo/apos/matrix/algebra/product/MatrixProductTest.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,6 +53,7 @@
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;minifsm&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/luca/GitHub/aKTing&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -65,7 +71,7 @@
       <recent name="unibo.apos.minifsm.builders" />
     </key>
   </component>
-  <component name="RunManager" selected="Kotlin.MiniFsmTestKt">
+  <component name="RunManager" selected="Kotlin.MatrixProductAppKt">
     <configuration name="MatrixProductTest" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
@@ -90,6 +96,15 @@
       <ForceTestExec>true</ForceTestExec>
       <method v="2" />
     </configuration>
+    <configuration name="MatrixProductAppKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="MatrixProductAppKt" />
+      <module name="unibo.apos.unibo.apos.examples.main" />
+      <option name="PROGRAM_PARAMETERS" value="-d 100 -t 10" />
+      <shortenClasspath name="NONE" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="MiniFsmTestKt" type="JetRunConfigurationType" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="unibo.apos.minifsm.MiniFsmTestKt" />
       <module name="unibo.apos.unibo.apos.examples.main" />
@@ -99,8 +114,9 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.MiniFsmTestKt" />
+        <item itemvalue="Kotlin.MatrixProductAppKt" />
         <item itemvalue="Gradle.MatrixProductTest" />
+        <item itemvalue="Kotlin.MiniFsmTestKt" />
       </list>
     </recent_temporary>
   </component>
@@ -113,7 +129,11 @@
       <option name="presentableId" value="Default" />
       <updated>1680638793455</updated>
       <workItem from="1680638794701" duration="4719000" />
-      <workItem from="1680715931881" duration="13074000" />
+      <workItem from="1680715931881" duration="13296000" />
+      <workItem from="1680799136369" duration="2093000" />
+      <workItem from="1681312196791" duration="45000" />
+      <workItem from="1682602889784" duration="7864000" />
+      <workItem from="1682685444394" duration="6000" />
     </task>
     <servers />
   </component>

@@ -17,10 +17,10 @@ class MatrixProductTest {
         @JvmStatic
         fun providedExecutors(): Stream<Arguments> {
             return Stream.of(
-                Arguments.of(SeqIJKMPE()),
-                Arguments.of(SeqIKJMPE()),
-                Arguments.of(ParallelSingleChannelGuidedMPE()),
-                Arguments.of(ParallelDedicatedChannelGuidedMPE())
+                Arguments.of(SeqIJKMatrixMultiplier()),
+                Arguments.of(SeqIKJMatrixMultiplier()),
+                Arguments.of(ParallelSingleChannelGuidedMatrixMultiplier()),
+                Arguments.of(ParallelDedicatedChannelGuidedMatrixMultiplier())
             )
         }
 
@@ -43,7 +43,7 @@ class MatrixProductTest {
 
     @ParameterizedTest
     @MethodSource("providedExecutors")
-    fun testMatAXMatB_isMatC(productExecutor: MatrixProductExecutor) {
+    fun testMatAXMatB_isMatC(productExecutor: MatrixMultiplier) {
         assertArrayEquals(MAT_C, productExecutor.multiply(MAT_A, MAT_B))
     }
 
