@@ -46,8 +46,8 @@ suspend fun sayHello(who: String) {
     println("$who : My context: $coroutineContext")
 }
 
+@OptIn(DelicateCoroutinesApi::class, ExperimentalCoroutinesApi::class)
 fun main() {
-    @OptIn(DelicateCoroutinesApi::class)
     val ctx = newSingleThreadContext("CoroutineSingleThread")
 
     runBlocking(ctx) {

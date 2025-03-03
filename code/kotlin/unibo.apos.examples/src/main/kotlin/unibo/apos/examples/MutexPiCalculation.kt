@@ -71,7 +71,3 @@ fun mutexPiCalculation(workers: Int): PiCalculation {
 
     //println("pi = $pi [ workers = $worker, elapsed time = ${elapsedTime.toDouble() / 1000000.0} millis ]")
 }
-
-fun main() {
-
-}

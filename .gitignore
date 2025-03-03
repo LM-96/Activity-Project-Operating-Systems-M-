@@ -1,0 +1,45 @@
+# IntelliJ IDEA
+/.idea/
+*.iml
+*.ipr
+*.iws
+
+# Gradle
+.gradle/
+build/
+out/
+
+# Java and Kotlin
+target/
+classes/
+*.class
+
+# GoLang
+/bin/
+/pkg/
+/vendor/
+
+# LaTeX
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.idx
+*.ilg
+*.ind
+*.lof
+*.log
+*.lot
+*.out
+*.toc
+
+# Qodo
+.qodo
+
+# General
+*.tmp
+*.bak
+*.swp
+.DS_Store
+Thumbs.db
+ehthumbs.db

@@ -7,9 +7,18 @@
  */
 
 plugins {
+    // Apply the application plugin to add support for building a CLI application in Java.
+    id 'application'
+
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-    id 'org.jetbrains.kotlin.jvm' version '1.8.20'
+    id 'org.jetbrains.kotlin.jvm' version '2.1.0'
+
+    // Apply KSP plugin
+    id 'com.google.devtools.ksp' version '2.1.0-1.0.29'
 }
+
+group = "unibo.apos"
+version = "1.0-SNAPSHOT"
 
 repositories {
     // Use Maven Central for resolving dependencies.
@@ -17,54 +26,84 @@ repositories {
 }
 
 dependencies {
-    // Align versions of all Kotlin components
-    implementation platform('org.jetbrains.kotlin:kotlin-bom')
 
-    // Use the Kotlin JDK 8 standard library.
-    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
-
-    // This dependency is used by the application.
-    implementation 'com.google.guava:guava:31.0.1-jre'
-
-    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-serialization-json-jvm
-    implementation 'org.jetbrains.kotlinx:kotlinx-serialization-json-jvm:1.5.0'
-
-    // https://mvnrepository.com/artifact/com.google.code.gson/gson
-    implementation 'com.google.code.gson:gson:2.10.1'
-
-
-//    // Use the Kotlin test library.
-//    testImplementation 'org.jetbrains.kotlin:kotlin-test'
-//
-//    // Use the Kotlin JUnit integration.
-//    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit'
-
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.9.2'
-
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-engine
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.9.2'
-
-    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite-engine
-    testImplementation group: 'org.junit.platform', name: 'junit-platform-suite-engine', version: '1.9.2'
-
-    // https://mvnrepository.com/artifact/org.junit.platform/junit-platform-suite
-    testImplementation group: 'org.junit.platform', name: 'junit-platform-suite', version: '1.9.2'
-
-    //COROUTINES
+    // COROUTINES
     // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-coroutines-core
-    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.6.4'
+    implementation group: 'org.jetbrains.kotlinx', name: 'kotlinx-coroutines-core', version: '1.10.1'
 
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-params
-    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.9.2'
+    // KSP
+    implementation 'com.google.dagger:dagger-compiler:2.51.1'
+    ksp 'com.google.dagger:dagger-compiler:2.51.1'
 
-    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-cli-jvm
-    implementation 'org.jetbrains.kotlinx:kotlinx-cli-jvm:0.3.5'
+    // PICOCLI
+    // https://mvnrepository.com/artifact/info.picocli/picocli
+    implementation group: 'info.picocli', name: 'picocli', version: '4.7.6'
 
+    // KOIN
+    // https://mvnrepository.com/artifact/io.insert-koin/koin-core
+    implementation group: 'io.insert-koin', name: 'koin-core', version: '4.0.2'
+    // https://mvnrepository.com/artifact/io.insert-koin/koin-annotations
+    implementation group: 'io.insert-koin', name: 'koin-annotations', version: '2.0.0'
+    // https://mvnrepository.com/artifact/io.insert-koin/koin-ksp-compiler
+    ksp group: 'io.insert-koin', name: 'koin-ksp-compiler', version: '2.0.0'
+
+    // APACHE COMMONS CSV
     // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
-    implementation 'org.apache.commons:commons-csv:1.10.0'
+    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.13.0'
+
+    // LOGGING
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.17'
+    // https://mvnrepository.com/artifact/io.github.oshai/kotlin-logging-jvm
+    implementation group: 'io.github.oshai', name: 'kotlin-logging-jvm', version: '7.0.4'
+
+    // OKHTTP
+    // https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp
+    implementation group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.12.0'
+
+    // TEST
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlin/kotlin-test
+    implementation group: 'org.jetbrains.kotlin', name: 'kotlin-test', version: '2.1.10'
+
+    // ASSERTK
+    // https://mvnrepository.com/artifact/com.willowtreeapps.assertk/assertk-jvm
+    testImplementation group: 'com.willowtreeapps.assertk', name: 'assertk-jvm', version: '0.28.1'
+
+    // EJML (Test)
+    // https://mvnrepository.com/artifact/org.ejml/ejml-core
+    testImplementation group: 'org.ejml', name: 'ejml-core', version: '0.43.1'
+    // https://mvnrepository.com/artifact/org.ejml/ejml-simple
+    testImplementation group: 'org.ejml', name: 'ejml-simple', version: '0.43.1'
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'unibo.apos.KAposMatrixApp'
+}
+
+ksp {
+    arg("KOIN_CONFIG_CHECK","true")
 }
 
 test {
     useJUnitPlatform()
+}
+
+kotlin {
+    jvmToolchain(21)
+    sourceSets {
+
+        // Add Koin Annotations
+        commonMain.dependencies {
+            // Koin
+            implementation("io.insert-koin:koin-core:4.0.2")
+            // Koin Annotations
+            api("io.insert-koin:koin-annotations:2.0.0")
+        }
+    }
+
+    // KSP Common sourceSet
+    sourceSets.named("commonMain").configure {
+        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+    }
 }
