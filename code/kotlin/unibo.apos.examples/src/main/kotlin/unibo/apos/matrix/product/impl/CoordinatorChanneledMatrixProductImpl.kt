@@ -13,6 +13,10 @@ import unibo.apos.matrix.utils.MatrixUtils
 
 class CoordinatorChanneledMatrixProductImpl: MatrixProduct {
 
+    companion object {
+        val EMPTY_MATRIX_POINTER = MatrixPointer(-1, -1);
+    }
+
     override suspend fun multiply(matA: Array<IntArray>, matB: Array<IntArray>, workers: Int): Array<IntArray> {
         val rows = matA.size
         val cols = matB[0].size
@@ -56,7 +60,7 @@ class CoordinatorChanneledMatrixProductImpl: MatrixProduct {
                     }
                 }
             } finally {
-                workerChannels.forEach { it.close() }
+                workerChannels.forEach { it.send(EMPTY_MATRIX_POINTER) }
                 repeat(workers) { ackChannel.receive() }
                 ackChannel.close()
                 resultChannel.close()
@@ -77,10 +81,12 @@ class CoordinatorChanneledMatrixProductImpl: MatrixProduct {
     ) {
         requestWorkChannel.send(id);
         try {
-            for (pointer in workerChannel) {
+            var pointer = workerChannel.receive()
+            while (pointer != EMPTY_MATRIX_POINTER) {
                 val result = MatrixUtils.computeProductCell(matA, matB, pointer);
                 resultChannel.send(result)
                 requestWorkChannel.send(id);
+                pointer = workerChannel.receive()
             }
         } finally {
             ackChannel.send(id);

@@ -13,8 +13,14 @@ plugins {
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id 'org.jetbrains.kotlin.jvm' version '2.1.0'
 
+    // Apply the org.jetbrains.kotlin.kapt Plugin to add support for Kapt.
+    id 'org.jetbrains.kotlin.kapt' version '2.1.0'
+
     // Apply KSP plugin
     id 'com.google.devtools.ksp' version '2.1.0-1.0.29'
+
+    // Apply GraalVM native-image plugin (updated from kraal)
+    id 'org.graalvm.buildtools.native' version '0.10.5'
 }
 
 group = "unibo.apos"
@@ -38,6 +44,7 @@ dependencies {
     // PICOCLI
     // https://mvnrepository.com/artifact/info.picocli/picocli
     implementation group: 'info.picocli', name: 'picocli', version: '4.7.6'
+    kapt group: 'info.picocli', name: 'picocli-codegen', version: '4.7.6'
 
     // KOIN
     // https://mvnrepository.com/artifact/io.insert-koin/koin-core
@@ -81,6 +88,12 @@ application {
     mainClass = 'unibo.apos.KAposMatrixApp'
 }
 
+kapt {
+    arguments {
+        arg("project", "${project.group}/${project.name}")
+    }
+}
+
 ksp {
     arg("KOIN_CONFIG_CHECK","true")
 }
@@ -105,5 +118,20 @@ kotlin {
     // KSP Common sourceSet
     sourceSets.named("commonMain").configure {
         kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
+    }
+}
+
+graalvmNative {
+    binaries {
+        main {
+            imageName = 'kapos-matrix-app'
+            mainClass = 'unibo.apos.KAposMatrixApp'
+            debug = false
+            verbose = true
+            fallback = false
+            buildArgs.add('--no-fallback')
+            buildArgs.add('-H:+ReportExceptionStackTraces')
+            buildArgs.add('-H:ReflectionConfigurationResources=META-INF/native-image/reflect-config.json')
+        }
     }
 }

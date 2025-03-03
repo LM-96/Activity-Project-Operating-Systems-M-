@@ -48,7 +48,7 @@ class KAposMatrixApp : Callable<Int> {
     @Option(names = ["-l", "--log"], description = ["Enable detailed logging"], defaultValue = "false")
     private var enableLogging: Boolean = false
 
-    @Option(names = ["-m", "--mode"], description = ["Concurrency mode: channeled or fan_channeled"], defaultValue = "COORDINATOR_CHANNELED")
+    @Option(names = ["-m", "--mode"], description = ["Concurrency mode: COORDINATOR or FAN"], defaultValue = "COORDINATOR")
     private var concurrencyType: ConcurrencyType = ConcurrencyType.COORDINATOR
 
     private val mode: String
@@ -137,8 +137,9 @@ class KAposMatrixApp : Callable<Int> {
     companion object {
         @JvmStatic
         fun main(args: Array<String>) {
-            val exitCode = CommandLine(KAposMatrixApp())
-                .execute(*args)
+            val cmd = CommandLine(KAposMatrixApp())
+            cmd.usageHelpWidth = 120
+            val exitCode = cmd.execute(*args)
             exitProcess(exitCode)
         }
     }

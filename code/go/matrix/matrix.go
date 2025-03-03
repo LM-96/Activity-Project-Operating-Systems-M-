@@ -32,9 +32,14 @@ func CreateRandomMatrix(size int) [][]int {
 	return matrix
 }
 
+func EmptyPointer() Pointer {
+	return Pointer{Row: -1, Col: -1}
+}
+
 // COORDINATOR ********************************************************************************************************
 
 func (c *CoordinatorChanneledMatrixProductImpl) Multiply(matA [][]int, matB [][]int, workers int) [][]int {
+	emptyPointer := EmptyPointer()
 	rows := len(matA)
 	cols := len(matB[0])
 	cells := rows * cols
@@ -74,7 +79,7 @@ func (c *CoordinatorChanneledMatrixProductImpl) Multiply(matA [][]int, matB [][]
 	}
 
 	for _, workerChannel := range workerChannels {
-		close(workerChannel)
+		workerChannel <- emptyPointer
 	}
 	for i := 0; i < workers; i++ {
 		<-ackChannel
@@ -102,11 +107,14 @@ func coordinatorWorker(
 	a [][]int,
 	b [][]int,
 ) {
+	emptyPointer := EmptyPointer()
 	requestWorkChannel <- id
-	for pointer := range workerChannel {
+	pointer := <-workerChannel
+	for pointer != emptyPointer {
 		result := computeProductCell(a, b, pointer)
 		resultChannel <- result
 		requestWorkChannel <- id
+		pointer = <-workerChannel
 	}
 
 	ackChannel <- id
