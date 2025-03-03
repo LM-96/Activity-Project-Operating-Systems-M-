@@ -4,22 +4,38 @@ import (
 	"math/rand"
 )
 
-type Pointer struct {
+type CellPointer struct {
 	Row int
 	Col int
 }
 
 type Cell struct {
-	Cell  Pointer
+	Cell  CellPointer
 	Value int
+}
+
+type ProductUnit struct {
+	Row     []int
+	Col     []int
+	Pointer CellPointer
 }
 
 type Product interface {
 	Multiply(matA [][]int, matB [][]int, workers int) [][]int
 }
 
+func (cellPointer CellPointer) IsEmpty() bool {
+	return cellPointer.Row == -1 && cellPointer.Col == -1
+}
+
+func (productUnit ProductUnit) IsEmpty() bool {
+	return productUnit.Row == nil && productUnit.Col == nil && productUnit.Pointer.IsEmpty()
+}
+
 type CoordinatorChanneledMatrixProductImpl struct{}
 type FanChanneledMatrixProductImpl struct{}
+
+type PureChanneledMatrixProductImpl struct{}
 
 func CreateRandomMatrix(size int) [][]int {
 	matrix := make([][]int, size)
@@ -32,8 +48,12 @@ func CreateRandomMatrix(size int) [][]int {
 	return matrix
 }
 
-func EmptyPointer() Pointer {
-	return Pointer{Row: -1, Col: -1}
+func EmptyPointer() CellPointer {
+	return CellPointer{Row: -1, Col: -1}
+}
+
+func EmptyProductUnit() ProductUnit {
+	return ProductUnit{Row: nil, Col: nil, Pointer: EmptyPointer()}
 }
 
 // COORDINATOR ********************************************************************************************************
@@ -48,9 +68,9 @@ func (c *CoordinatorChanneledMatrixProductImpl) Multiply(matA [][]int, matB [][]
 	requestWorkChannel := make(chan int, workers)
 	ackChannel := make(chan int, workers)
 	resultChannel := make(chan Cell, cells)
-	workerChannels := make([]chan Pointer, workers)
+	workerChannels := make([]chan CellPointer, workers)
 	for i := range workerChannels {
-		workerChannels[i] = make(chan Pointer, cells)
+		workerChannels[i] = make(chan CellPointer, cells)
 	}
 
 	for i := 0; i < workers; i++ {
@@ -64,7 +84,7 @@ func (c *CoordinatorChanneledMatrixProductImpl) Multiply(matA [][]int, matB [][]
 	for completedCells < cells {
 		select {
 		case id := <-when(currentRow < rows && currentCol < cols, requestWorkChannel):
-			workerChannels[id] <- Pointer{currentRow, currentCol}
+			workerChannels[id] <- CellPointer{currentRow, currentCol}
 			currentCol++
 			if currentCol == cols {
 				currentCol = 0
@@ -90,7 +110,7 @@ func (c *CoordinatorChanneledMatrixProductImpl) Multiply(matA [][]int, matB [][]
 	return result
 }
 
-func computeProductCell(a [][]int, b [][]int, pointer Pointer) Cell {
+func computeProductCellOfPointer(a [][]int, b [][]int, pointer CellPointer) Cell {
 	sum := 0
 	for k := 0; k < len(a[0]); k++ {
 		sum += a[pointer.Row][k] * b[k][pointer.Col]
@@ -102,16 +122,15 @@ func coordinatorWorker(
 	id int,
 	requestWorkChannel chan<- int,
 	ackChannel chan<- int,
-	workerChannel <-chan Pointer,
+	workerChannel <-chan CellPointer,
 	resultChannel chan<- Cell,
 	a [][]int,
 	b [][]int,
 ) {
-	emptyPointer := EmptyPointer()
 	requestWorkChannel <- id
 	pointer := <-workerChannel
-	for pointer != emptyPointer {
-		result := computeProductCell(a, b, pointer)
+	for !pointer.IsEmpty() {
+		result := computeProductCellOfPointer(a, b, pointer)
 		resultChannel <- result
 		requestWorkChannel <- id
 		pointer = <-workerChannel
@@ -128,7 +147,7 @@ func (c *FanChanneledMatrixProductImpl) Multiply(matA [][]int, matB [][]int, wor
 	cells := rows * cols
 	result := createEmptyMatrix(rows, cols)
 
-	taskChannel := make(chan Pointer, cells)
+	taskChannel := make(chan CellPointer, cells)
 	resultChannel := make(chan Cell, cells)
 
 	for i := 0; i < workers; i++ {
@@ -155,13 +174,13 @@ func fanCollectResult(
 }
 
 func fanDistributeWork(
-	taskChannel chan Pointer,
+	taskChannel chan CellPointer,
 	rows int,
 	cols int,
 ) {
 	for row := 0; row < rows; row++ {
 		for col := 0; col < cols; col++ {
-			taskChannel <- Pointer{Row: row, Col: col}
+			taskChannel <- CellPointer{Row: row, Col: col}
 		}
 	}
 
@@ -169,14 +188,109 @@ func fanDistributeWork(
 }
 
 func fanWorker(
-	taskChannel <-chan Pointer,
+	taskChannel <-chan CellPointer,
 	resultChannel chan<- Cell,
 	matA [][]int,
 	matB [][]int,
 ) {
 	for task := range taskChannel {
-		resultChannel <- computeProductCell(matA, matB, task)
+		resultChannel <- computeProductCellOfPointer(matA, matB, task)
 	}
+}
+
+// PURE ***************************************************************************************************************
+
+func (c *PureChanneledMatrixProductImpl) Multiply(matA [][]int, matB [][]int, workers int) [][]int {
+	emptyProductUnit := EmptyProductUnit()
+	rows := len(matA)
+	cols := len(matB[0])
+	cells := rows * cols
+	result := createEmptyMatrix(rows, cols)
+
+	requestWorkChannel := make(chan int, workers)
+	ackChannel := make(chan int, workers)
+	resultChannel := make(chan Cell, cells)
+	workerChannels := make([]chan ProductUnit, workers)
+	for i := range workerChannels {
+		workerChannels[i] = make(chan ProductUnit, cells)
+	}
+
+	for i := 0; i < workers; i++ {
+		go pureWorker(i, requestWorkChannel, ackChannel, workerChannels[i], resultChannel)
+	}
+
+	currentRow := 0
+	currentCol := 0
+	completedCells := 0
+
+	for completedCells < cells {
+		select {
+		case id := <-when(currentRow < rows && currentCol < cols, requestWorkChannel):
+			pointer := CellPointer{Row: currentRow, Col: currentCol}
+			workerChannels[id] <- getProductUnit(matA, matB, pointer)
+			currentCol++
+			if currentCol == cols {
+				currentCol = 0
+				currentRow++
+			}
+
+		case partial := <-resultChannel:
+			cell := partial.Cell
+			result[cell.Row][cell.Col] = partial.Value
+			completedCells++
+		}
+	}
+
+	for _, workerChannel := range workerChannels {
+		workerChannel <- emptyProductUnit
+	}
+	for i := 0; i < workers; i++ {
+		<-ackChannel
+	}
+	close(ackChannel)
+	close(resultChannel)
+
+	return result
+}
+
+func computeProductCellOfUnit(productUnit ProductUnit) Cell {
+	sum := 0
+	row := productUnit.Row
+	col := productUnit.Col
+	for k := 0; k < len(row); k++ {
+		sum += row[k] * col[k]
+	}
+	return Cell{Cell: productUnit.Pointer, Value: sum}
+}
+
+func getProductUnit(matA [][]int, matB [][]int, pointer CellPointer) ProductUnit {
+	rowA := matA[pointer.Row]
+	colIndex := pointer.Col
+	colB := make([]int, len(matB))
+	for i, row := range matB {
+		colB[i] = row[colIndex]
+	}
+
+	return ProductUnit{Row: rowA, Col: colB, Pointer: pointer}
+}
+
+func pureWorker(
+	id int,
+	requestWorkChannel chan<- int,
+	ackChannel chan<- int,
+	workerChannel <-chan ProductUnit,
+	resultChannel chan<- Cell,
+) {
+	requestWorkChannel <- id
+	productUnit := <-workerChannel
+	for !productUnit.IsEmpty() {
+		result := computeProductCellOfUnit(productUnit)
+		resultChannel <- result
+		requestWorkChannel <- id
+		productUnit = <-workerChannel
+	}
+
+	ackChannel <- id
 }
 
 // UTILITY ************************************************************************************************************

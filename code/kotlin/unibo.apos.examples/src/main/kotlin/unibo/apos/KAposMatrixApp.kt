@@ -48,7 +48,7 @@ class KAposMatrixApp : Callable<Int> {
     @Option(names = ["-l", "--log"], description = ["Enable detailed logging"], defaultValue = "false")
     private var enableLogging: Boolean = false
 
-    @Option(names = ["-m", "--mode"], description = ["Concurrency mode: COORDINATOR or FAN"], defaultValue = "COORDINATOR")
+    @Option(names = ["-m", "--mode"], description = ["Concurrency mode: COORDINATOR, FAN or PURE"], defaultValue = "COORDINATOR")
     private var concurrencyType: ConcurrencyType = ConcurrencyType.COORDINATOR
 
     private val mode: String

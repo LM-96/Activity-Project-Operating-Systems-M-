@@ -1,6 +1,6 @@
 package unibo.apos.matrix.model
 
-data class MatrixCell(
-    val cell: MatrixPointer,
+data class Cell(
+    val cell: CellPointer,
     val value: Int,
 )

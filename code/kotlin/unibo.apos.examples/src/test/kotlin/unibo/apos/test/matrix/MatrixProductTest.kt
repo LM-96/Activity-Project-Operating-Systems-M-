@@ -8,6 +8,7 @@ import org.junit.jupiter.api.DisplayName
 import unibo.apos.matrix.product.MatrixProduct
 import unibo.apos.matrix.product.impl.CoordinatorChanneledMatrixProductImpl
 import unibo.apos.matrix.product.impl.FanChanneledMatrixProductImpl
+import unibo.apos.matrix.product.impl.PureChanneledMatrixProductImpl
 import kotlin.test.Test
 
 @DisplayName("Matrix Product Tests")
@@ -15,7 +16,8 @@ class MatrixProductTest {
 
     private val matrixProductImpls = listOf(
         CoordinatorChanneledMatrixProductImpl(),
-        FanChanneledMatrixProductImpl()
+        FanChanneledMatrixProductImpl(),
+        PureChanneledMatrixProductImpl()
     )
 
     @Test

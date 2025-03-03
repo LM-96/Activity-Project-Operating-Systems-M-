@@ -8,11 +8,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.selects.select
 import unibo.apos.matrix.model.Cell
 import unibo.apos.matrix.model.CellPointer
+import unibo.apos.matrix.model.ProductUnit
 import unibo.apos.matrix.product.MatrixProduct
 import unibo.apos.matrix.utils.MatrixUtils
 
 @Suppress("DUPLICATES")
-class CoordinatorChanneledMatrixProductImpl: MatrixProduct {
+class PureChanneledMatrixProductImpl: MatrixProduct {
 
     override suspend fun multiply(matA: Array<IntArray>, matB: Array<IntArray>, workers: Int): Array<IntArray> {
         val rows = matA.size
@@ -23,12 +24,12 @@ class CoordinatorChanneledMatrixProductImpl: MatrixProduct {
         val requestWorkChannel = Channel<Int>(Channel.BUFFERED);
         val ackChannel = Channel<Int>(Channel.BUFFERED);
         val resultChannel = Channel<Cell>(Channel.BUFFERED);
-        val workerChannels = Array(workers) { Channel<CellPointer>(Channel.BUFFERED) }
+        val workerChannels = Array(workers) { Channel<ProductUnit>(Channel.BUFFERED) }
 
         coroutineScope {
             repeat(workers) { id ->
                 launch {
-                    worker(id, requestWorkChannel, ackChannel, workerChannels[id], resultChannel, matA, matB)
+                    worker(id, requestWorkChannel, ackChannel, workerChannels[id], resultChannel)
                 }
             }
 
@@ -40,7 +41,8 @@ class CoordinatorChanneledMatrixProductImpl: MatrixProduct {
                     select<Unit> {
                         if (currentRow < rows && currentCol < cols) {
                             requestWorkChannel.onReceive {
-                                workerChannels[it].send(CellPointer(currentRow, currentCol))
+                                val pointer = CellPointer(currentRow, currentCol)
+                                workerChannels[it].send(getProductUnit(matA, matB, pointer))
                                 currentCol++
                                 if (currentCol == cols) {
                                     currentCol = 0;
@@ -57,7 +59,7 @@ class CoordinatorChanneledMatrixProductImpl: MatrixProduct {
                     }
                 }
             } finally {
-                workerChannels.forEach { it.send(CellPointer.EMPTY) }
+                workerChannels.forEach { it.send(ProductUnit.EMPTY) }
                 repeat(workers) { ackChannel.receive() }
                 ackChannel.close()
                 resultChannel.close()
@@ -67,23 +69,33 @@ class CoordinatorChanneledMatrixProductImpl: MatrixProduct {
         return result
     }
 
+    private fun getProductUnit(
+        matA: Array<IntArray>,
+        matB: Array<IntArray>,
+        pointer: CellPointer
+    ): ProductUnit {
+        val rowA = matA[pointer.row]
+        val colIndex = pointer.col
+        val colB = matB.map { currentRow -> currentRow[colIndex] }.toIntArray()
+
+        return ProductUnit(rowA, colB, pointer)
+    }
+
     private suspend fun worker(
         id: Int,
         requestWorkChannel: SendChannel<Int>,
         ackChannel: SendChannel<Int>,
-        workerChannel: ReceiveChannel<CellPointer>,
-        resultChannel: SendChannel<Cell>,
-        matA: Array<IntArray>,
-        matB: Array<IntArray>
+        workerChannel: ReceiveChannel<ProductUnit>,
+        resultChannel: SendChannel<Cell>
     ) {
         requestWorkChannel.send(id);
         try {
-            var pointer = workerChannel.receive()
-            while (pointer != CellPointer.EMPTY) {
-                val result = MatrixUtils.computeProductCell(matA, matB, pointer);
+            var productUnit = workerChannel.receive()
+            while (productUnit != ProductUnit.EMPTY) {
+                val result = MatrixUtils.computeProductCell(productUnit);
                 resultChannel.send(result)
                 requestWorkChannel.send(id);
-                pointer = workerChannel.receive()
+                productUnit = workerChannel.receive()
             }
         } finally {
             ackChannel.send(id);

@@ -10,6 +10,7 @@ func TestMatrixMultiplication(t *testing.T) {
 	implementations := []Product{
 		&CoordinatorChanneledMatrixProductImpl{},
 		&FanChanneledMatrixProductImpl{},
+		&PureChanneledMatrixProductImpl{},
 	}
 
 	t.Run("Should return the right result when multiplying two 3x3 matrices", func(t *testing.T) {

@@ -33,6 +33,7 @@ type RunResult struct {
 const (
 	COORDINATOR Mode = "COORDINATOR"
 	FAN         Mode = "FAN"
+	PURE        Mode = "PURE"
 )
 
 func main() {
@@ -96,6 +97,8 @@ func getMatrixProduct(options Options) matrix.Product {
 		return &matrix.FanChanneledMatrixProductImpl{}
 	case COORDINATOR:
 		return &matrix.CoordinatorChanneledMatrixProductImpl{}
+	case PURE:
+		return &matrix.PureChanneledMatrixProductImpl{}
 	default:
 		throwError("invalid mode: %s", string(options.mode))
 		return nil
@@ -109,7 +112,7 @@ func getOptions() Options {
 	fileName := flag.String("f", "", "CSV filename for storing results")
 	repetitions := flag.Int("r", 1, "Number of times to repeat the calculation")
 	enableLogging := flag.Bool("l", false, "Enable detailed logging")
-	mode := flag.String("m", "COORDINATOR", "Multiplication mode: COORDINATOR or FAN")
+	mode := flag.String("m", "COORDINATOR", "Multiplication mode: COORDINATOR, FAN or PURE")
 	flag.Parse()
 
 	options := Options{
@@ -152,7 +155,7 @@ func logStatistics(results []RunResult, enableLogging bool) {
 
 func parseMode(s string) Mode {
 	switch Mode(s) {
-	case COORDINATOR, FAN:
+	case COORDINATOR, FAN, PURE:
 		return Mode(s)
 	default:
 		throwError("invalid mode: %s", s)
