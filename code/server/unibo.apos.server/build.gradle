@@ -11,26 +11,64 @@ plugins {
 
     // Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
     id 'org.jetbrains.kotlin.jvm' version '2.1.0'
+
+    // Apply the org.jetbrains.kotlin.kapt Plugin to add support for Kapt.
+    id 'org.jetbrains.kotlin.kapt' version '2.1.0'
+
+    // Apply KSP plugin
+    id 'com.google.devtools.ksp' version '2.1.0-1.0.29'
 }
+
+group = "unibo.apos"
+version = "1.0-SNAPSHOT"
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    // Use the Kotlin JUnit 5 integration.
-    testImplementation 'org.jetbrains.kotlin:kotlin-test-junit5'
+    // PICOCLI
+    // https://mvnrepository.com/artifact/info.picocli/picocli
+    implementation group: 'info.picocli', name: 'picocli', version: '4.7.6'
+    kapt group: 'info.picocli', name: 'picocli-codegen', version: '4.7.6'
 
-    // Use the JUnit 5 integration.
-    testImplementation libs.junit.jupiter.engine
+    // KOIN
+    // https://mvnrepository.com/artifact/io.insert-koin/koin-core
+    implementation group: 'io.insert-koin', name: 'koin-core', version: '4.0.2'
+    // https://mvnrepository.com/artifact/io.insert-koin/koin-annotations
+    implementation group: 'io.insert-koin', name: 'koin-annotations', version: '2.0.0'
+    // https://mvnrepository.com/artifact/io.insert-koin/koin-ksp-compiler
+    ksp group: 'io.insert-koin', name: 'koin-ksp-compiler', version: '2.0.0'
 
-    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+    // APACHE COMMONS CSV
+    // https://mvnrepository.com/artifact/org.apache.commons/commons-csv
+    implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.13.0'
 
-    // This dependency is used by the application.
-    implementation libs.guava
+    // LOGGING
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    implementation group: 'ch.qos.logback', name: 'logback-classic', version: '1.5.17'
+    // https://mvnrepository.com/artifact/io.github.oshai/kotlin-logging-jvm
+    implementation group: 'io.github.oshai', name: 'kotlin-logging-jvm', version: '7.0.4'
+
+    // LETS PLOT
+    // https://mvnrepository.com/artifact/org.jetbrains.lets-plot/lets-plot-kotlin-jvm
+    implementation group: 'org.jetbrains.lets-plot', name: 'lets-plot-kotlin-jvm', version: '4.9.3'
+    // https://mvnrepository.com/artifact/org.jetbrains.lets-plot/lets-plot-common
+    implementation group: 'org.jetbrains.lets-plot', name: 'lets-plot-common', version: '4.5.2'
+    // https://mvnrepository.com/artifact/org.jetbrains.lets-plot/lets-plot-image-export
+    implementation group: 'org.jetbrains.lets-plot', name: 'lets-plot-image-export', version: '4.5.2'
 }
 
-// Apply a specific Java toolchain to ease working on different environments.
+kapt {
+    arguments {
+        arg("project", "${project.group}/${project.name}")
+    }
+}
+
+ksp {
+    arg("KOIN_CONFIG_CHECK","true")
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
@@ -39,7 +77,7 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = 'org.example.AppKt'
+    mainClass = 'unibo.apos.server.AposServer'
 }
 
 tasks.named('test') {

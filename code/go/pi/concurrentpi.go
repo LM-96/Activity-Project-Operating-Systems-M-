@@ -1,10 +1,11 @@
+// Package pi
 // Concurrent computation of pi.
 // See https://goo.gl/la6Kli.
 //
 // This demonstrates Go's ability to handle
 // large numbers of concurrent processes.
 // It is an unreasonable way to calculate pi.
-package main
+package pi
 
 import (
 	"fmt"

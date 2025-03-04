@@ -88,6 +88,12 @@ application {
     mainClass = 'unibo.apos.KAposMatrixApp'
 }
 
+jar {
+    manifest {
+        attributes 'Main-Class': 'unibo.apos.KAposMatrixApp'
+    }
+}
+
 kapt {
     arguments {
         arg("project", "${project.group}/${project.name}")
