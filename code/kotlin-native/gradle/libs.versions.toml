@@ -1,0 +1,20 @@
+[versions]
+kotlin = "2.1.0"
+kotlinxCoroutines = "1.10.1"
+kotlinxDatetime = "0.6.2"
+kotlinxIO = "0.7.0"
+clikt = "5.0.3"
+logback = "1.5.17"
+kotlinLogging = "7.0.4"
+
+[libraries]
+kotlinxCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinxCoroutines" }
+kotlinxDatetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinxDatetime" }
+kotlinxIO = { module = "org.jetbrains.kotlinx:kotlinx-io-core", version.ref = "kotlinxIO" }
+clikt = { module = "com.github.ajalt.clikt:clikt", version.ref = "clikt" }
+logback = { module = "ch.qos.logback:logback-classic", version.ref = "logback"}
+kotlinLogging = { module = "io.github.oshai:kotlin-logging", version.ref = "kotlinLogging" }
+
+[plugins]
+kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
+kotlinxSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
