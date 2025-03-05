@@ -68,7 +68,7 @@ check_and_build_kotlin() {
 run_session_fixed_workers() {
 
     echo -e "${BLUE}Session 1: Analyzing execution time with varying number of workers (matrix size: $OUTPUT_FILE_FIXED_SIZE)${NC}"
-    echo "Results will be saved to $OUTPUT_FILE_FIXED_SIZE"
+    echo "Results will be saved to $OUTPUT_FILE_FIXED_WORKERS"
 
     # Run with different worker counts
     for workers in "${WORKER_COUNTS[@]}"; do
@@ -77,7 +77,7 @@ run_session_fixed_workers() {
         # Run Kotlin Native implementation with different concurrency types
         for mode in "${CONCURRENCY_MODES[@]}"; do
             echo "  Kotlin - $mode mode"
-            "$KOTLIN_EXECUTABLE" -s "$FIXED_MATRIX_SIZE" -c "$workers" -m "$mode" -r "$REPETITIONS" -o -f "$OUTPUT_FILE_FIXED_SIZE" -l
+            "$KOTLIN_EXECUTABLE" -s "$FIXED_MATRIX_SIZE" -c "$workers" -m "$mode" -r "$REPETITIONS" -o -f "$OUTPUT_FILE_FIXED_WORKERS" -l
         done
     done
 
@@ -86,14 +86,14 @@ run_session_fixed_workers() {
 
 run_session_fixed_size() {
     echo -e "${BLUE}Session 2: Analyzing execution time with varying matrix size (workers: $FIXED_WORKERS)${NC}"
-    echo "Results will be saved to $OUTPUT_FILE_FIXED_WORKERS"
+    echo "Results will be saved to $OUTPUT_FILE_FIXED_SIZE"
 
     for size in "${MATRIX_SIZES[@]}"; do
         echo "Running with matrix size $size..."
 
         for mode in "${CONCURRENCY_MODES[@]}"; do
             echo "  Kotlin - $mode mode"
-            "$KOTLIN_EXECUTABLE" -s "$size" -c "$FIXED_WORKERS" -m "$mode" -r "$REPETITIONS" -o -f "$OUTPUT_FILE_FIXED_WORKERS" -l
+            "$KOTLIN_EXECUTABLE" -s "$size" -c "$FIXED_WORKERS" -m "$mode" -r "$REPETITIONS" -o -f "$OUTPUT_FILE_FIXED_SIZE" -l
         done
     done
 

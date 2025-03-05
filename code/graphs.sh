@@ -56,28 +56,28 @@ create_graphs() {
   echo "Generating graphs..."
 
   echo "   Fixed size, ALL"
-    "$SERVER_SCRIPT" "${FIXED_SIZE_CSV}" -o "${OUTPUT_DIR}/fixed_size_go_ktjvm_all.svg" --x WORKERS --y AVG_TIME
+    "$SERVER_SCRIPT" "${FIXED_SIZE_CSV}" -o "${OUTPUT_DIR}/fixed_size_all.svg" --x WORKERS --y AVG_TIME
 
   echo "   Fixed size, PURE"
-  "$SERVER_SCRIPT" "${FIXED_SIZE_CSV}" -o "${OUTPUT_DIR}/fixed_size_go_ktjvm_pure.svg" --x WORKERS --y AVG_TIME -m KT_PURE,GO_PURE,KT_NTV_PURE
+  "$SERVER_SCRIPT" "${FIXED_SIZE_CSV}" -o "${OUTPUT_DIR}/fixed_size_pure.svg" --x WORKERS --y AVG_TIME -m KT_PURE,GO_PURE,KT_NTV_PURE,KT_GRAAL_PURE
 
   echo "   Fixed size, COORDINATOR"
-  "$SERVER_SCRIPT" "${FIXED_SIZE_CSV}" -o "${OUTPUT_DIR}/fixed_size_go_ktjvm_coordinator.svg" --x WORKERS --y AVG_TIME -m KT_COORDINATOR,GO_COORDINATOR,KT_NTV_COORDINATOR
+  "$SERVER_SCRIPT" "${FIXED_SIZE_CSV}" -o "${OUTPUT_DIR}/fixed_size_coordinator.svg" --x WORKERS --y AVG_TIME -m KT_COORDINATOR,GO_COORDINATOR,KT_NTV_COORDINATOR,KT_GRAAL_COORDINATOR
 
   echo "   Fixed size, FAN"
-    "$SERVER_SCRIPT" "${FIXED_SIZE_CSV}" -o "${OUTPUT_DIR}/fixed_size_go_ktjvm_fan.svg" --x WORKERS --y AVG_TIME -m KT_FAN,GO_FAN,KT_NTV_FAN
+    "$SERVER_SCRIPT" "${FIXED_SIZE_CSV}" -o "${OUTPUT_DIR}/fixed_size_fan.svg" --x WORKERS --y AVG_TIME -m KT_FAN,GO_FAN,KT_NTV_FAN,KT_GRAAL_FAN
 
   echo "   Fixed workers, ALL"
-      "$SERVER_SCRIPT" "${FIXED_WORKERS_CSV}" -o "${OUTPUT_DIR}/fixed_workers_go_ktjvm_all.svg" --x SIZE --y AVG_TIME
+      "$SERVER_SCRIPT" "${FIXED_WORKERS_CSV}" -o "${OUTPUT_DIR}/fixed_workers_ll.svg" --x SIZE --y AVG_TIME
 
   echo "   Fixed workers, PURE"
-    "$SERVER_SCRIPT" "${FIXED_WORKERS_CSV}" -o "${OUTPUT_DIR}/fixed_workers_go_ktjvm_pure.svg" --x SIZE --y AVG_TIME -m KT_PURE,GO_PURE,KT_NTV_PURE
+    "$SERVER_SCRIPT" "${FIXED_WORKERS_CSV}" -o "${OUTPUT_DIR}/fixed_workers_pure.svg" --x SIZE --y AVG_TIME -m KT_PURE,GO_PURE,KT_NTV_PURE,KT_GRAAL_PURE
 
   echo "   Fixed workers, COORDINATOR"
-  "$SERVER_SCRIPT" "${FIXED_WORKERS_CSV}" -o "${OUTPUT_DIR}/fixed_workers_go_ktjvm_coordinator.svg" --x SIZE --y AVG_TIME -m KT_COORDINATOR,GO_COORDINATOR,KT_NTV_COORDINATOR
+  "$SERVER_SCRIPT" "${FIXED_WORKERS_CSV}" -o "${OUTPUT_DIR}/fixed_workers_coordinator.svg" --x SIZE --y AVG_TIME -m KT_COORDINATOR,GO_COORDINATOR,KT_NTV_COORDINATOR,KT_GRAAL_COORDINATOR
 
   echo "   Fixed workers, FAN"
-    "$SERVER_SCRIPT" "${FIXED_WORKERS_CSV}" -o "${OUTPUT_DIR}/fixed_workers_go_ktjvm_fan.svg" --x SIZE --y AVG_TIME -m KT_FAN,GO_FAN,KT_NTV_FAN
+    "$SERVER_SCRIPT" "${FIXED_WORKERS_CSV}" -o "${OUTPUT_DIR}/fixed_workers_fan.svg" --x SIZE --y AVG_TIME -m KT_FAN,GO_FAN,KT_NTV_FAN,KT_GRAAL_FAN
 }
 
 echo "Checking and building required executables..."

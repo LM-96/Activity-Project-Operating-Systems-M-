@@ -28,8 +28,18 @@ class LetsPlotServiceImpl: PlotService {
     private val log = KotlinLogging.logger {}
 
     private val availableColors = listOf(
-        "#1f77b4", "#ff7f0e", "#2ca02c", "#d62728", "#9467bd",
-        "#8c564b", "#e377c2", "#7f7f7f", "#bcbd22", "#17becf"
+        "#1f77b4", // Blue
+        "#ff7f0e", // Orange
+        "#2ca02c", // Green
+        "#d62728", // Red
+        "#9467bd", // Purple
+        "#8c564b", // Brown
+        "#e377c2", // Pink
+        "#7f7f7f", // Gray
+        "#bcbd22", // Olive
+        "#17becf", // Cyan
+        "#ffbb78", // Light Orange
+        "#98df8a"  // Light Green
     )
 
     private val columnToValue = mapOf<AvailableColumn, (WorkspaceStats) -> Number>(
