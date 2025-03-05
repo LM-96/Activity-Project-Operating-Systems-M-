@@ -1,0 +1,13 @@
+\section{Conclusion}
+
+We compared three different matrix multiplication algorithms with different levels of coroutine communication: from \texttt{FAN}, that has the lower number of messages, to \texttt{PURE} that stressed the communication by sending all the parts of the matrices to the workers via channels. \texttt{COORDINATOR} is in the middle, with matrices on the shared memory and smaller messages.
+
+We also used two different languages: \Go, that has lightweight concurrent units mapped on the OS threads and managed by the \Go runtime, and \Kotlin in its three different versions \texttt{JVM}, Native and \texttt{Graal}.
+
+\Go seems to be \uline{less time consuming} than all of the other in every scenario, showing how its effectively designed for efficiency. It manages coroutines without problems, handling also a large amount of workers keeping the time almost constant.
+
+\Kotlin \textit{JVM} shows that \uline{\texttt{JVM} is able to perform some optimizations on the communication} when the channels are stressed, but actually shows some \uline{lacks during its "warm-up" phase}, in which has to perform lots of operations and to create the threads the coroutines will be dispatched within.
+
+\Kotlin \texttt{Graal} provides an \uline{excellent compromise between the efficiency of \Go and the rich functionality of \Kotlin}. Unlike \Kotlin Native, \texttt{GraalVM} does not impose significant limitations on Kotlin's dynamic features, such as reflection and runtime libraries, thanks to its compatibility with the \texttt{JVM} ecosystem and its advanced ahead-of-time (AOT) compilation capabilities.
+
+\Kotlin Native, instead, had \uline{the worst performance in almost every situation}. Moreover, it significantly limits the feature offered by \Kotlin, allowing the developer to use only built-in \Kotlin libraries. \texttt{Java} libraries are denied.

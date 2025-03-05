@@ -1,20 +1,139 @@
 \section{Introduction}
 
+\subsection{\Kotlin general overview}
+
 \Kotlin is a modern, multi-platform and blended programming language developed by \href{https://www.jetbrains.com/}{Jetbrains} that works on JVM such as \href{www.scala-lang.org}{\texttt{Scala}}.
-\Kotlin is completely interoperable with \texttt{Java}\footnote{All classes written in \Kotlin are callable from \texttt{Java} code and vice-versa.} and it is \textit{object-oriented} with strong elements of \href{https://en.wikipedia.org/wiki/Functional_programming}{functional programming} that make it more powerful than his father \texttt{Java}.
+\Kotlin is completely interoperable with \texttt{Java}\footnote{All classes written in \Kotlin can be callable from \texttt{Java} code and vice-versa.} and it is \textit{object-oriented} with strong elements of \href{https://en.wikipedia.org/wiki/Functional_programming}{functional programming} that make it more powerful than his father \texttt{Java}.
 As specified in the \href{https://kotlinlang.org/#why-kotlin}{main page} of the official website, \Kotlin has also the advantages to be \textit{concise}, \textit{safe in nullability}, \textit{expressive}, \textit{asynchronous}, \textit{interoperable} and \textit{multiplatform}.
 
-Furthermore, since 2019, Google has declared \Kotlin as the preferred language for developing \texttt{Android} applications, establishing it as the \textit{de facto} official language. As anticipated, \Kotlin supports also \href{https://kotlinlang.org/docs/multiplatform.html}{multiplatform} allowing the developer to write \Kotlin code that can be compiled for \href{https://kotlinlang.org/docs/native-overview.html}{native} platforms (including \texttt{Android} and \texttt{iOS}), \texttt{JVM} and \texttt{JavaScript}.
+Furthermore, since 2019, Google has declared \Kotlin as the preferred language for developing \texttt{Android} applications, establishing it as the \textit{de facto} official language. As anticipated, \Kotlin supports also \href{https://kotlinlang.org/docs/multiplatform.html}{multiplatform} allowing the developer to write \Kotlin code that can be compiled for \href{https://kotlinlang.org/docs/native-overview.html}{native} platforms (including \texttt{Android} and \texttt{iOS}), \texttt{JVM} and \texttt{JavaScript}.\\
+
+\begin{lstlisting}[language=kotlin,caption={Exemples of  \Kotlin 's features}]
+	// Concise *************************************************************
+	val object = Object()
+	
+	// Safe in nullability *************************************************
+	var name: String = "myName"
+	var nullableName: String? = null
+	// NOT POSSIBLE TO ASSIGN `nullableName = null`
+	// The compiler will say "Null can not be a value of a non-null type String"
+	
+	// Expressive **********************************************************
+	fun List<Int>.evenSum() = filter { it % 2 == 0 }.sum()
+	
+	fun user(block: UserBuilder.() -> Unit): User {
+		val user = User();
+		user.block()
+		return user
+	}
+	
+	fun main() {
+		val numbers = listOf(1, 2, 3, 4, 5, 6)
+		println("Sum of even numbers: ${numbers.evenSum()}")
+		
+		val user = user {
+			name = "luca"
+			surname = "marchegiani"
+		}
+		println("User: $user")
+	}
+	
+	// Asynchronous ********************************************************
+	suspend fun fetchData(): String {
+		delay(2000) // Simulating network delay
+		return "Data received"
+	}
+	
+	fun main() = runBlocking {
+		val result = async { fetchData() }
+		println(result.await()) 
+	}
+	
+	// Interoperable *******************************************************
+	public class JavaClass {
+		public static String greet(String name) {
+			return "Hello, " + name + "!";
+		}
+	}
+	
+	fun main() {
+		val message = JavaClass.greet("Kotlin")
+		println(message) // Calls the Java method from Kotlin
+	}
+\end{lstlisting}
+
+\subsection{\Go general overview}
 
 \Go is an open source programming language developed and supported by \texttt{Google}.
-It's an \textit{imperative} and \textit{object-oriented} language that is strongly designed for concurrency thanks to its very easy way to launch process and its efficiency.
+It's an \textit{imperative} and \textit{typed} language that is strongly designed for concurrency thanks to its very easy way to launch process and its efficiency.
 The idea of this language is to maintain the run-time efficiency of \texttt{C} but with more readability and usability. Differently from \texttt{C}, \Go has \textit{memory safety}, \textit{garbage collection} and \textit{structural typing} as said by \href{https://en.wikipedia.org/wiki/Go_(programming_language)}{Wikipedia}.
 
-In the last years, \Go also supports mobile platform (\texttt{Android} and \texttt{iOS}) as described in the official \href{https://github.com/golang/go/wiki/Mobile}{wiki}, by writing \textit{all-Go native mobile applications} or \textit{SDK applications} with bindings for \texttt{Java} or \texttt{Objective-C}.
+In the last years, \Go also supports mobile platform (\texttt{Android} and \texttt{iOS}) as described in the official \href{https://go.dev/wiki/Mobile}{wiki}, by writing \textit{all-Go native mobile applications} or \textit{SDK applications} with bindings for \texttt{Java} or \texttt{Objective-C}.
 There is also a toolkit called \href{https://fyne.io/}{Fyne} that is free and open source that makes easy to build graphical application also for mobile using \Go.
+Anyway,  \Go is not widely used for mobile applications since it is primarily designed for backend and system programming. Additionally, \Kotlin is the official language for Android and is also multi-platform.\\
+
+\begin{lstlisting}[language=go,caption={Exemples of  \Go 's features}]
+	// Designed for concurrency *******************************************
+	func asyncTask() {
+		fmt.Println("Running asynchronously!")
+	}
+	
+	func main() {
+		go asyncTask()
+	}
+	
+	// Readability and usability ******************************************
+	func add(a, b int) int {
+		return a + b
+	}
+	
+	func main() {
+		nums := []int{1, 2, 3, 4, 5}
+		
+		for _, num := range nums {
+			fmt.Println("Number:", num)
+		}
+		
+		result := add(3, 7)
+		fmt.Println("Sum:", result)
+	}
+	
+\end{lstlisting}
+
+\subsection{Fast comparison}
+
+\Go feels like a \emph{modern reinterpretation of C}, emphasizing simplicity and efficiency, while \Kotlin embodies a \emph{contemporary approach to programming} with expressive syntax and power features, with full support to functional programming.
 
 From the concurrency point of view, \textbf{both of this language supports \href{https://en.wikipedia.org/wiki/Coroutine}{coroutines}} as concurrent units of execution. \textit{Coroutines} are lightweight processes that can run over multiple OS threads, allowing to save on thread management costs.
 
-Coroutines and threads are very similar, but the main difference is that the firsts are \textit{non-preemptive} (or \textit{cooperatives}) differently from the seconds that are typically \textit{preemptive} and scheduled by the OS. Indeed, the execution of a coroutine can be suspended and resumed by the developer, calling some operations, and not by the OS.
+Coroutines and threads are very similar, but the main difference is that the firsts are \textit{non-preemptive} (or \textit{cooperatives}) differently from the seconds that are typically \textit{preemptive} and scheduled by the OS. Indeed, the execution of a coroutine can be suspended and resumed by the developer, calling some operations, and not by the OS. We will go in the details for both of this language.
 
-We will go in the details for both of this language.
+To conclude this fast overview, you can find the table below that summarizes the main differences between the two languages:
+
+\begin{center}
+	\begin{tabular}{|>{\raggedright\arraybackslash}p{3cm}|>{\raggedright\arraybackslash}p{5cm}|>{\raggedright\arraybackslash}p{5cm}|}
+		\hline
+		\textbf{Feature} & \textbf{Go (Golang)} & \textbf{Kotlin} \\
+		\hline
+		\textbf{Typing} & Statically typed & Statically typed \\
+		\hline
+		\textbf{Null Safety} & No built-in null safety & Built-in null safety with nullable and non-nullable types \\
+		\hline
+		\textbf{Concurrency} & Goroutines for lightweight concurrency & Coroutines for asynchronous programming \\
+		\hline
+		\textbf{Interoperability} & Limited interoperability with C/C++ & Full interoperability with Java, multiplatform \\
+		\hline
+		\textbf{Syntax} & Simple and minimalistic & Concise with modern features (lambda, receivers, infix functions) \\
+		\hline
+		\textbf{Use Cases} & System programming, cloud services & Android development, server-side applications \\
+		\hline
+		\textbf{Standard Library} & Rich standard library with built-in concurrency support & Rich standard library with extensive collection utilities, all the Java libraries on \Kotlin JVM \\
+		\hline
+		\textbf{Tooling} & Supported by editors like \textit{VS Code} or \textit{Goland} & Supported by \textit{IntelliJ IDEA} and Android Studio \\
+		\hline
+		\textbf{Community} & Strong community with a focus on simplicity and performance & Growing community with a focus on modern development practices \\
+		\hline
+		\textbf{Functional Programming} & Limited support for functional programming & Strong support with higher-order functions, lambdas, and more \\
+		\hline
+	\end{tabular}
+\end{center}
